@@ -1,4 +1,4 @@
-/* .main-contain{
+.main-contain{
   display: flex;
   flex-wrap: wrap;
   margin:0 auto;
@@ -15,4 +15,4 @@
 }
 .empty{
   background:black
-} */
+}

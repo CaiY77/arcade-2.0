@@ -1,45 +1,51 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'semantic-ui-react'
-const GameOptions = [
-  {
-    key: 1,
-    value: "tic",
-    text: 'Tic-Tac-Toe'
-  }
-]
+import {Route} from 'react-router-dom'
+import socketIOClient from 'socket.io-client'
+import Tic from './components/Tic'
+import GameForm from './components/GameForm'
+
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      game: ""
+      socket: socketIOClient("localhost:4001"),
+      name:'',
+      room:''
     } ;
   }
-  handleGame=(value)=>{
-    this.setState({
-      game: value
-    })
-  }
-  handleChanges =(event)=>{
+
+  handleChanges = (event)=>{
     const element = event.target
     const name = element.name
     const value = element.value
     this.setState({[name]: value})
   }
-  
+
+  makeGame=()=>{
+    const roomName = Math.floor(Math.random()*10000)
+    const {socket} = this.state
+    socket.emit("createRoom",roomName)
+
+    socket.on("newGame",roomName=>{
+      console.log(roomName)
+      this.setState({
+        room: roomName
+      });
+    })
+  }
+
+  joinGame=()=>{
+
+  }
+
   render() {
+    const {socket} = this.state
+
     return (
       <div>
-        <Form>
-          <Form.Field>
-            <label>Enter your name</label>
-            <input onChange={this.handleChanges} placeholder="Enter a Funny Word" />
-          </Form.Field>
-          <Form.Field>
-            <label>Select a Game</label>
-            <Form.Select onChange={(e, {value}) => this.handleGame(value)} options={GameOptions} name="game" placeholder='I Want to play...' />
-          </Form.Field>
-          <Button type='submit'>Create Game!</Button>
-        </Form>
+        <Route exact path="/" render={()=><GameForm sub = {this.makeGame} nameChange={this.handleChanges}/> }/>
+        <Route path = "/tic-tac-toe" render={()=> <Tic name= {this.state.name} room = {this.state.room}/>}/>
       </div>
     );
   }

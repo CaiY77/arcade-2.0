@@ -12,10 +12,16 @@ io.on('connection', socket => {
   socket.on('MakeMove', array => {
    io.sockets.emit('MakeMove', array)
   })
+  
+  socket.on('createRoom', roomName=>{
+    socket.join(`${roomName}`)
+    io.sockets.emit('newGame', roomName)
+  })
 
   socket.on('disconnect', () => {
     console.log(`${socket.id} disconnected`)
   })
+
 })
 
 app.get('/', async (request, response) => {
