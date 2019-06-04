@@ -12,11 +12,14 @@ io.on('connection', socket => {
   socket.on('MakeMove', array => {
    io.sockets.emit('MakeMove', array)
   })
-  
+
   socket.on('createRoom', roomName=>{
+    console.log(roomName + 'created')
     socket.join(`${roomName}`)
     io.sockets.emit('newGame', roomName)
   })
+
+  socket.on
 
   socket.on('disconnect', () => {
     console.log(`${socket.id} disconnected`)

@@ -39,7 +39,7 @@ class Tic extends Component {
   }
 
   render() {
-    
+
     const {socket} = this.state;
     socket.on('MakeMove',data =>{
       this.setState({

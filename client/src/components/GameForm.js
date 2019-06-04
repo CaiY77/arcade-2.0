@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import '../App.css'
+
 const GameOptions = [
   {
     key: 1,
@@ -24,7 +26,7 @@ class GameForm extends Component {
 
   render() {
     return (
-     <Form onSubmit={()=>this.props.sub()}>
+     <Form>
        <Form.Field>
          <label>Enter your name</label>
          <input onChange={this.props.nameChange} name="name"placeholder="Enter a Funny Word" />
@@ -33,7 +35,7 @@ class GameForm extends Component {
          <label>Select a Game</label>
          <Form.Select onChange={(e, {value}) => this.handleGame(value)} options={GameOptions} name="game" placeholder='I Want to play...' />
        </Form.Field>
-       <Button type='submit'><Link to={`/${this.state.game}`}>Create Game!</Link></Button>
+       <Link to={`/${this.state.game}`}><Button onClick={()=>this.props.sub()} type='submit'>Create Game!</Button></Link>
      </Form>
     );
   }

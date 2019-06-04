@@ -22,9 +22,10 @@ class App extends Component {
     this.setState({[name]: value})
   }
 
-  makeGame=()=>{
+  makeGame = () => {
     const roomName = Math.floor(Math.random()*10000)
     const {socket} = this.state
+    console.log(roomName)
     socket.emit("createRoom",roomName)
 
     socket.on("newGame",roomName=>{
@@ -40,12 +41,13 @@ class App extends Component {
   }
 
   render() {
-    const {socket} = this.state
+    const {socket, room} = this.state
 
     return (
       <div>
-        <Route exact path="/" render={()=><GameForm sub = {this.makeGame} nameChange={this.handleChanges}/> }/>
+        <Route exact path="/" render={()=><GameForm join={this.joinGame} sub = {this.makeGame} nameChange={this.handleChanges}/> }/>
         <Route path = "/tic-tac-toe" render={()=> <Tic name= {this.state.name} room = {this.state.room}/>}/>
+
       </div>
     );
   }
