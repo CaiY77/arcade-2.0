@@ -1,56 +1,47 @@
 import React, { Component } from 'react';
-import socketIOClient from 'socket.io-client'
-import './App.css'
-
-
+import { Button, Form } from 'semantic-ui-react'
+const GameOptions = [
+  {
+    key: 1,
+    value: "tic",
+    text: 'Tic-Tac-Toe'
+  }
+]
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      socket: socketIOClient("localhost:4001"),
-      tic: [
-        [1,0,0],
-        [0,1,0],
-        [2,0,1]
-      ]
-    };
+      game: ""
+    } ;
   }
-
-  gameStatus = () => {
-    const {tic} = this.state;
-    let show = tic.map(row =>{
-       return row.map(col =>{
-        if(col==1){
-          return(<div className = "box one"></div>)
-        }
-        else if(col==2){
-          return(<div className = "box two"></div>)
-        } else {
-          return(<div className = "box empty"></div>)
-        }
-      })
+  handleGame=(value)=>{
+    this.setState({
+      game: value
     })
-    return show
   }
-  change = () => {
-    const {socket,tic} = this.state;
-    tic[0][0] = 2;
-    socket.emit('MakeMove',tic)
+  handleChanges =(event)=>{
+    const element = event.target
+    const name = element.name
+    const value = element.value
+    this.setState({[name]: value})
   }
-
+  
   render() {
-    const {socket,tic} = this.state;
-    socket.on('MakeMove',data =>{
-      this.setState({
-        tic:data
-      });
-    })
     return (
-      <div className="main-contain">
-        {this.gameStatus()}
-        <button onClick={()=>{this.change()}}>Testing</button>
+      <div>
+        <Form>
+          <Form.Field>
+            <label>Enter your name</label>
+            <input onChange={this.handleChanges} placeholder="Enter a Funny Word" />
+          </Form.Field>
+          <Form.Field>
+            <label>Select a Game</label>
+            <Form.Select onChange={(e, {value}) => this.handleGame(value)} options={GameOptions} name="game" placeholder='I Want to play...' />
+          </Form.Field>
+          <Button type='submit'>Create Game!</Button>
+        </Form>
       </div>
-    )
+    );
   }
 
 }
