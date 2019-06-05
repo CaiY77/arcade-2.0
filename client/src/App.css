@@ -1,20 +1,27 @@
-.main-contain{
+.tic-container {
+  margin: auto;
+  margin-top: 5vh;
+  width: 45vw;
+  height: 45vw;
   display: flex;
   flex-wrap: wrap;
-  margin:0 auto;
 }
 .box{
-  width: 26vw;
-  height: 26vw;
+  width: 15vw;
+  height: 15vw;
+  border:solid black 1px;
 }
 .player1{
-  background:blue;
+  background: url('./images/o.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .player2{
-  background:green;
-}
-.empty{
-  background:black
+  background: url('./images/x.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .sizing{
   padding:0 25vw 0 25vw;

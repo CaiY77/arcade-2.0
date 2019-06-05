@@ -25,7 +25,7 @@ class Tic extends Component {
         else if(col===2){
           return(<div className = "box player2"></div>)
         } else {
-          return(<div className = "box empty"></div>)
+          return(<div className = "box"></div>)
         }
       })
     })
@@ -54,11 +54,13 @@ class Tic extends Component {
 
     console.log(this.state.tic)
     return (
-      <div className="main-contain">
+      <div>
         {this.props.name}
         {this.props.room}
         <br/>
-        {this.gameStatus()}
+        <div class="tic-container">
+          {this.gameStatus()}
+        </div>
         <button onClick={()=>{this.change()}}>Testing</button>
       </div>
     );
