@@ -45,7 +45,7 @@ class App extends Component {
     const {socket, room} = this.state
 
     return (
-      <div>
+      <div className="app-contain">
         <Route exact path="/" render={()=><GameForm join={this.joinGame} sub = {this.makeGame} change={this.handleChanges}/> }/>
         <Route path = "/tic-tac-toe" render={()=> <Tic name= {this.state.name} room = {this.state.room}/>}/>
 

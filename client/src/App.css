@@ -16,3 +16,17 @@
 .empty{
   background:black
 }
+.sizing{
+  padding:0 25vw 0 25vw;
+  margin-top: 25vh;
+}
+.join-create-form{
+  width: auto;
+  height: auto;
+}
+.form-contain{
+  height:100%;
+}
+.app-contain{
+  height: 100vh;
+}
