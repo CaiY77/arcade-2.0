@@ -20,10 +20,10 @@ class Tic extends Component {
     let show = tic.map(row =>{
       return row.map(col =>{
         if(col===1){
-          return(<div className = "box one"></div>)
+          return(<div className = "box player1"></div>)
         }
         else if(col===2){
-          return(<div className = "box two"></div>)
+          return(<div className = "box player2"></div>)
         } else {
           return(<div className = "box empty"></div>)
         }
