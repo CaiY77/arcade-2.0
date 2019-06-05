@@ -55,8 +55,8 @@ class Tic extends Component {
     console.log(this.state.tic)
     return (
       <div>
-        {this.props.name}
-        {this.props.room}
+        <h1 className="font">{this.props.name}</h1>
+        <h1 className="font">{this.props.room}</h1>
         <br/>
         <div class="tic-container">
           {this.gameStatus()}

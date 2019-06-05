@@ -1,6 +1,55 @@
+@font-face {
+  font-family: hand-writing;
+  src: url(./assets/NanumBrush.ttf);
+}
+.font {
+  font-family: hand-writing !important;
+}
+.app-contain{
+  background: url(./images/paper.jpg);
+  background-size: cover;
+}
+.app-title{
+  text-align:center;
+  font-size: 90pt;
+}
+.sizing{
+  padding:0 25vw 0 25vw;
+}
+.join-create-form{
+  width: auto;
+  height: auto;
+  background: rgba(255,255,255,0) !important;
+  border: solid 3px !important;
+  border-radius: 2% 95% 2% 95%/95% 2% 92% 2% !important;
+  padding: 3vw !important;
+}
+.form-contain{
+  height:100vh;
+  padding-top: 10vh;
+}
+.label-style{
+  font-size: 20pt !important;
+}
+.input-field{
+  background: rgba(255,255,255,0) !important;
+  border: solid !important;
+  border-radius: 2% 95% 2% 95%/95% 2% 92% 2% !important;
+}
+.button-style{
+  font-size: 20pt;
+  padding: 10px;
+}
+
+input[type="text"]
+{
+  font-family:hand-writing !important;
+  font-size: 20pt !important;
+  padding: 5px 5px 5px 10px !important;
+}
+
 .tic-container {
   margin: auto;
-  margin-top: 5vh;
   width: 45vw;
   height: 45vw;
   display: flex;
@@ -22,18 +71,4 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-}
-.sizing{
-  padding:0 25vw 0 25vw;
-  margin-top: 25vh;
-}
-.join-create-form{
-  width: auto;
-  height: auto;
-}
-.form-contain{
-  height:100%;
-}
-.app-contain{
-  height: 100vh;
 }

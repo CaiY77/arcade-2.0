@@ -26,41 +26,43 @@ class GameForm extends Component {
 
   render() {
     return (<div className="form-contain">
+      <h1 className="font app-title">ARCADE V2</h1>
+
       <div className="sizing">
         <Segment className="join-create-form">
           <Grid columns={2} relaxed='very'>
             <Grid.Column>
               <Form>
                 <Form.Field>
-                  <label>Enter your name</label>
-                  <input onChange={this.props.change} name="name"placeholder="Enter a Funny Word" />
+                  <label className="font label-style">ENTER YOUR NAME</label>
+                  <input type="text" className="input-field" onChange={this.props.change} name="name"/>
                 </Form.Field>
                 <Form.Field>
-                  <label>Select a Game</label>
-                  <Form.Select onChange={(e, {value}) => this.handleGame(value)} options={GameOptions} name="game" placeholder='I Want To Play...' />
+                  <label className="font label-style">SELECT A GAME</label>
+                  <Form.Select onChange={(e, {value}) => this.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...'/>
                 </Form.Field>
-                <Link to={`/${this.state.game}`}><Button onClick={()=>this.props.sub()} type='submit'>Create Game!</Button></Link>
+                <Link to={`/${this.state.game}`}><button className="font input-field button-style" onClick={()=>this.props.sub()} type='submit'>CREATE GAME!</button></Link>
               </Form>
             </Grid.Column>
             <Grid.Column>
               <Form>
                 <Form.Field>
-                  <label>Enter your name</label>
-                  <input onChange={this.props.change} name="name" placeholder="Enter a Funny Word" />
+                  <label className="font label-style">ENTER YOUR NAME</label>
+                  <input type="text" className="input-field" onChange={this.props.change} name="name"/>
                 </Form.Field>
                 <Form.Field>
-                  <label>Enter Room Code</label>
-                  <input onChange={this.props.change} name="room" placeholder="Enter Room Code" />
+                  <label className="font label-style">ENTER ROOM CODE</label>
+                  <input type="text" className="input-field" onChange={this.props.change} name="room"/>
                 </Form.Field>
                 <Form.Field>
-                  <label>Select a Game</label>
-                  <Form.Select onChange={(e, {value}) => this.handleGame(value)} options={GameOptions} name="game" placeholder='I Want To Play...' />
+                  <label className="font label-style">SELECT A GAME</label>
+                  <Form.Select onChange={(e, {value}) => this.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...' />
                 </Form.Field>
-                <Link to={`/${this.state.game}`}><Button onClick={()=>this.props.join()} type='submit'>Join Game!</Button></Link>
+                <Link to={`/${this.state.game}`}><button className="font input-field button-style" onClick={()=>this.props.join()} type='submit'>JOIN GAME!</button></Link>
               </Form>
             </Grid.Column>
           </Grid>
-          <Divider vertical>OR</Divider>
+          <Divider vertical className="font label-style">OR</Divider>
         </Segment>
       </div>
     </div>);
