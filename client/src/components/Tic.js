@@ -9,8 +9,8 @@ class Tic extends Component {
       socket: socketIOClient("localhost:4001"),
       tic: [
       [1,0,0],
-      [0,1,0],
-      [0,0,1]
+      [0,2,0],
+      [0,0,0]
       ]
     };
   }
@@ -33,24 +33,31 @@ class Tic extends Component {
   }
 
   change = () => {
+    console.log("changing")
     const {socket,tic} = this.state;
     tic[0][0] = 2;
-    socket.emit('MakeMove',tic)
+    socket.emit('MakeMove',
+    {
+      array: tic,
+      room: this.props.room
+    })
   }
 
   render() {
-
     const {socket} = this.state;
     socket.on('MakeMove',data =>{
+      console.log(data)
       this.setState({
         tic:data
       });
     })
 
+    console.log(this.state.tic)
     return (
       <div className="main-contain">
         {this.props.name}
         {this.props.room}
+        <br/>
         {this.gameStatus()}
         <button onClick={()=>{this.change()}}>Testing</button>
       </div>

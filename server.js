@@ -9,17 +9,23 @@ const io = socketIO(server)
 io.on('connection', socket => {
   console.log(`${socket.id} connected`)
 
-  socket.on('MakeMove', array => {
-   io.sockets.emit('MakeMove', array)
+  socket.on('MakeMove', data => {
+    let everyone = io.sockets.adapter.rooms[data.room].sockets
+    .emit('MakeMove', data.array)
   })
 
   socket.on('createRoom', roomName=>{
-    console.log(roomName + 'created')
-    socket.join(`${roomName}`)
-    io.sockets.emit('newGame', roomName)
+    console.log(`${socket.id} created a room: ${roomName}`)
+    socket.join(roomName)
+    console.log(io.sockets.adapter.rooms[roomName].sockets)
+    socket.emit('newGame', roomName)
   })
 
-  socket.on
+  socket.on('joinRoom', roomName=>{
+    console.log(`${socket.id} joined ${roomName}`)
+    socket.join(roomName)
+    console.log(io.sockets.adapter.rooms[roomName].sockets)
+  })
 
   socket.on('disconnect', () => {
     console.log(`${socket.id} disconnected`)
