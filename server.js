@@ -9,7 +9,7 @@ const io = socketIO(server)
 io.on('connection', socket => {
 
   socket.on('MakeMove', data => {
-    io.to(`${data.room}`).emit('MakeMove', data.array);
+    io.to(`${data.room}`).emit('MakeMove', data);
   })
 
   socket.on('createRoom', data=>{

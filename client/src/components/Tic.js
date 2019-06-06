@@ -35,9 +35,9 @@ class Tic extends Component {
     const {socket} = this.props;
     const {players} = this.props
     socket.on('MakeMove',data =>{
-      console.log(data)
       this.setState({
-        tic:data
+        tic: data.array,
+        turnP1: data.turn
       });
     })
     socket.on('updatePlayers', client=>{
@@ -46,14 +46,31 @@ class Tic extends Component {
   }
 
   change = (index) => {
-    const { tic, turnP1, players } = this.state;
-    const {socket} = this.props;
-    tic[index] = 2;
-    socket.emit('MakeMove',
-    {
-      array: tic,
-      room: this.props.room
-    })
+    const { tic, turnP1} = this.state;
+    const {socket, id, players} = this.props;
+    if(turnP1 && id === players[0]){
+
+        tic[index] = 1
+        socket.emit('MakeMove',
+        {
+          array: tic,
+          room: this.props.room,
+          turn: !turnP1
+        })
+
+    }
+    if(!turnP1 && id === players[1]){
+
+        tic[index] = 2
+        socket.emit('MakeMove',
+        {
+          array: tic,
+          room: this.props.room,
+          turn: !turnP1
+        })
+
+    }
+
   }
 
   leaveRoom = () =>{
