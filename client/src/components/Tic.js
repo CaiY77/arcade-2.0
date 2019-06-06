@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import '../App.css'
 import socketIOClient from 'socket.io-client'
 
@@ -57,14 +58,22 @@ class Tic extends Component {
     this.socketWatch();
     console.log(this.state.tic)
     return (
-      <div>
-        <h1 className="font">{this.props.name}</h1>
-        <h1 className="font">{this.props.room}</h1>
-        <br/>
-        <div class="tic-container">
-          {this.gameStatus()}
+      <div className="tic-js">
+        <h1 className="font game-title">TIC-TAC-TOE</h1>
+        <div className="tic-content-contain">
+          <div className="game-info">
+            <h1 className="font">{this.props.name}</h1>
+            <h1 className="font">{this.props.room}</h1>
+          </div>
+          <div className="tic-contain">
+            <div class="tic-board">
+              {this.gameStatus()}
+            </div>
+          </div>
+          <div className="possible-chat">
+            <button onClick={()=>{this.change()}}>Testing</button>
+          </div>
         </div>
-        <button onClick={()=>{this.change()}}>Testing</button>
       </div>
     );
   }

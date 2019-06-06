@@ -2,6 +2,10 @@
   font-family: hand-writing;
   src: url(./assets/NanumBrush.ttf);
 }
+*{
+  padding:0;
+  margin: 0;
+}
 .font {
   font-family: hand-writing !important;
 }
@@ -13,6 +17,7 @@
 .app-title{
   text-align:center;
   font-size: 90pt;
+  margin-bottom: 5vh;
 }
 .sizing{
   padding:0 25vw 0 25vw;
@@ -27,7 +32,7 @@
 }
 .form-contain{
   height:100vh;
-  padding-top: 10vh;
+  padding-top: 5vh;
 }
 .error-form{
   text-align: center;
@@ -53,16 +58,43 @@ input[type="text"]
   padding: 5px 5px 5px 10px !important;
 }
 
-.tic-container {
-  margin: auto;
-  width: 30vw;
-  height: 30vw;
+/* GAME */
+.tic-js{
+  height: 85vh;
+}
+.game-title{
+  text-align: center;
+  font-size: 90pt;
+  height: 15vh;
+}
+.tic-content-contain{
+  display: flex;
+  border: solid blue 1px;
+  height: 100%;
+}
+.tic-board {
+  width: 39vw;
+  height: 39vw;
   display: flex;
   flex-wrap: wrap;
 }
+
+.game-info{
+flex: 1;
+border: solid green 1px;
+}
+.tic-contain{
+  flex: 3;
+  border: solid yellow 1px;
+}
+.possible-chat{
+flex:1;
+border: solid red 1px;
+}
+
 .box{
-  width: 10vw;
-  height: 10vw;
+  width: 13vw;
+  height: 13vw;
   border:solid black 1px;
 }
 .player1{

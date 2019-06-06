@@ -59,7 +59,7 @@ class GameForm extends Component {
           <Divider vertical className="font label-style">OR</Divider>
         </Segment>
       </div>
-      
+
       <h1 className="font error-form">{this.props.message}</h1>
 
 
