@@ -10,20 +10,19 @@ io.on('connection', socket => {
   console.log(`${socket.id} connected`)
 
   socket.on('MakeMove', data => {
-    let everyone = io.sockets.adapter.rooms[data.room].sockets
-    .emit('MakeMove', data.array)
+    io.to(`${data.room}`).emit('MakeMove', data.array);
   })
 
   socket.on('createRoom', roomName=>{
     console.log(`${socket.id} created a room: ${roomName}`)
-    socket.join(roomName)
-    console.log(io.sockets.adapter.rooms[roomName].sockets)
+    socket.join(`${roomName}`)
+    console.log(io.sockets.adapter.rooms[roomName].sockets.length)
     socket.emit('newGame', roomName)
   })
 
   socket.on('joinRoom', roomName=>{
     console.log(`${socket.id} joined ${roomName}`)
-    socket.join(roomName)
+    socket.join(`${roomName}`)
     console.log(io.sockets.adapter.rooms[roomName].sockets)
   })
 

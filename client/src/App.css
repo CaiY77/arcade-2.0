@@ -19,7 +19,7 @@
 .join-create-form{
   width: auto;
   height: auto;
-  background: rgba(255,255,255,0) !important;
+  background: transparent !important;
   border: solid 3px !important;
   border-radius: 2% 95% 2% 95%/95% 2% 92% 2% !important;
   padding: 3vw !important;
@@ -32,7 +32,7 @@
   font-size: 20pt !important;
 }
 .input-field{
-  background: rgba(255,255,255,0) !important;
+  background: transparent !important;
   border: solid !important;
   border-radius: 2% 95% 2% 95%/95% 2% 92% 2% !important;
 }

@@ -3,10 +3,10 @@ import '../App.css'
 import socketIOClient from 'socket.io-client'
 
 class Tic extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      socket: socketIOClient("localhost:4001"),
       tic: [
       [1,0,0],
       [0,2,0],
@@ -32,9 +32,19 @@ class Tic extends Component {
     return show
   }
 
+  socketWatch = () => {
+    const {socket} = this.props;
+    socket.on('MakeMove',data =>{
+      console.log(data)
+      this.setState({
+        tic:data
+      });
+    })
+  }
   change = () => {
     console.log("changing")
-    const {socket,tic} = this.state;
+    const {tic} = this.state;
+    const {socket} = this.props;
     tic[0][0] = 2;
     socket.emit('MakeMove',
     {
@@ -44,14 +54,7 @@ class Tic extends Component {
   }
 
   render() {
-    const {socket} = this.state;
-    socket.on('MakeMove',data =>{
-      console.log(data)
-      this.setState({
-        tic:data
-      });
-    })
-
+    this.socketWatch();
     console.log(this.state.tic)
     return (
       <div>
