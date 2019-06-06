@@ -13,7 +13,7 @@ class App extends Component {
       name:'',
       room:'',
       game: '',
-      err: '',
+      message: '',
       clear: false
     } ;
   }
@@ -47,14 +47,14 @@ class App extends Component {
   }
 
   joinGame=()=>{
-    const { socket, room, game, name, err } = this.state;
+    const { socket, room, game, name } = this.state;
 
     if(name != '' && game != '' && room != ''){
       console.log('in')
       socket.emit('joinRoom', room )
       socket.on("msg", msg=>{
         this.setState({
-          err: msg.message,
+          message: msg.message,
           clear: msg.clear
         });
       })
@@ -63,11 +63,11 @@ class App extends Component {
 
 
   render() {
-    const {socket, room, err} = this.state
+    const {socket, room, message} = this.state
 
     return (
       <div className="app-contain">
-        <Route exact path="/" render={()=><GameForm game={this.state.game} clear={this.state.clear} err={err} handleGame={this.handleGame} join={this.joinGame} sub = {this.makeGame} change={this.handleChanges}/> }/>
+        <Route exact path="/" render={()=><GameForm game={this.state.game} clear={this.state.clear} message={message} handleGame={this.handleGame} join={this.joinGame} sub = {this.makeGame} change={this.handleChanges}/> }/>
         <Route path = "/tic-tac-toe" render={()=> <Tic socket ={this.state.socket} name= {this.state.name} room = {this.state.room}/>}/>
       </div>
     );
