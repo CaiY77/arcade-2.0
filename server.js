@@ -16,14 +16,19 @@ io.on('connection', socket => {
   socket.on('createRoom', roomName=>{
     console.log(`${socket.id} created a room: ${roomName}`)
     socket.join(`${roomName}`)
-    console.log(io.sockets.adapter.rooms[roomName].sockets.length)
+    console.log(io.sockets.adapter.rooms[roomName].length)
     socket.emit('newGame', roomName)
   })
 
   socket.on('joinRoom', roomName=>{
-    console.log(`${socket.id} joined ${roomName}`)
-    socket.join(`${roomName}`)
-    console.log(io.sockets.adapter.rooms[roomName].sockets)
+    let people = io.sockets.adapter.rooms[roomName].length
+    if(people < 2){
+      socket.join(`${roomName}`)
+      console.log(`${socket.id} joined ${roomName}`)
+    } else {
+      socket.emit('error', { message:`Opps, looks like that room is full`})
+    }
+    console.log(io.sockets.adapter.rooms[roomName].length)
   })
 
   socket.on('disconnect', () => {
