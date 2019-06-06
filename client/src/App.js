@@ -10,6 +10,7 @@ class App extends Component {
     super(props);
     this.state = {
       socket: socketIOClient("localhost:4001"),
+      socketID:'',
       name:'',
       room:'',
       game: '',
@@ -43,10 +44,13 @@ class App extends Component {
       })
       socket.on("newGame", data=>{
         this.setState({
-          room: data.room
+          room: data.room,
+          players: data.players,
+          socketID: socket.id
         });
       })
     }
+
   }
 
   joinGame=()=>{
@@ -62,19 +66,48 @@ class App extends Component {
       socket.on("msg", msg=>{
         this.setState({
           message: msg.message,
-          clear: msg.clear
+          clear: msg.clear,
+          players: msg.players,
+          socketID: socket.id
         });
       })
     }
   }
 
+  updatePlayers=(people)=>{
+    this.setState({
+      players: people
+    });
+  }
 
   render() {
-    const {socket, room, message, players} = this.state
+  const {socket, room, message, players, name, socketID, game, clear} = this.state
+
     return (
       <div className="app-contain">
-        <Route exact path="/" render={()=><GameForm game={this.state.game} clear={this.state.clear} message={message} handleGame={this.handleGame} join={this.joinGame} sub = {this.makeGame} change={this.handleChanges}/> }/>
-        <Route path = "/tic-tac-toe" render={()=> <Tic players= {players} socket ={this.state.socket} name= {this.state.name} room = {this.state.room}/>}/>
+
+        <Route exact path="/" render={()=>
+          <GameForm
+            game={game}
+            clear={clear}
+            message={message}
+            handleGame={this.handleGame}
+            join={this.joinGame}
+            sub={this.makeGame}
+            change={this.handleChanges}
+          />
+        }/>
+
+        <Route path = "/tic-tac-toe" render={()=>
+          <Tic
+            update={this.updatePlayers}
+            players= {players}
+            socket ={socket}
+            id={socketID}
+            name= {name}
+            room = {room}
+          />
+        }/>
       </div>
     );
   }

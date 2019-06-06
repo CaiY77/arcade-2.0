@@ -17,10 +17,10 @@ io.on('connection', socket => {
     console.log(`${socket.username} created a room: ${data.room}`)
     socket.join(`${data.room}`)
     io.in(data.room).clients((err,clients)=>{
-      console.log(clients[0])
-    })
-    socket.emit('newGame', {
-      room: data.room
+      socket.emit('newGame', {
+        room: data.room,
+        players: clients
+      })
     })
   })
 
@@ -31,13 +31,19 @@ io.on('connection', socket => {
       socket.join(`${data.room}`)
       console.log(`${socket.id} joined ${data.room}`)
 
-      socket.emit('msg', {
-        message:`COME ON IN!!!`,
-        clear: true
+      io.in(data.room).clients((err,clients)=>{
+
+        socket.emit('msg', {
+          message:`COME ON IN!!!`,
+          clear: true,
+          players: clients
+        })
+        io.to(`${data.room}`).emit('updatePlayers', clients);
       })
+
     } else {
       socket.emit('msg', {
-         message:`Opps, looks like that room ${data.room} is full`,
+         message:`Opps, looks like room ${data.room} is full`,
          clear: false
        })
     }

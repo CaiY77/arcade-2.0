@@ -40,7 +40,9 @@ class Tic extends Component {
         tic:data
       });
     })
-
+    socket.on('updatePlayers', client=>{
+      this.props.update(client)
+    })
   }
 
   change = (e) => {
@@ -73,7 +75,7 @@ class Tic extends Component {
             <h1 className="font"> Player 1 : {players[0]}</h1>
             {
               (players[1])
-                ? <h1 className="font"> Player 1 : {players[1]}</h1>
+                ? <h1 className="font"> Player 2 : {players[1]}</h1>
                 : <h1 className="font">Player 2 : Waiting...</h1>
             }
           </div>
@@ -86,7 +88,7 @@ class Tic extends Component {
                     <Dimmer active inverted>
                       <Loader size='massive'>Waiting For More Players</Loader>
                     </Dimmer>
-                    )
+                  )
               }
               </div>
           </div>
