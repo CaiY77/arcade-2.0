@@ -9,7 +9,7 @@ class Tic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tic: [1,0,0,0,0,0,0,0,0],
+      tic: [0,0,0,0,0,0,0,0,0],
       turnP1: true
     };
   }
@@ -19,12 +19,12 @@ class Tic extends Component {
     let show = tic.map((box,index) =>{
 
         if(box === 1){
-          return(<div key={index} onClick={(e)=>this.change(e)} className = "box player1"></div>)
+          return(<div key={index} onClick={()=>this.change(index)} className = "box player1"></div>)
         }
         else if(box === 2){
-          return(<div key={index} onClick={(e)=>this.change(e)} className = "box player2"></div>)
+          return(<div key={index} onClick={()=>this.change(index)} className = "box player2"></div>)
         } else {
-          return(<div key={index} onClick={(e)=>this.change(e)} className = "box"></div>)
+          return(<div key={index} onClick={()=>this.change(index)} className = "box"></div>)
         }
 
     })
@@ -45,16 +45,15 @@ class Tic extends Component {
     })
   }
 
-  change = (e) => {
-    console.log(e.target)
+  change = (index) => {
     const { tic, turnP1, players } = this.state;
     const {socket} = this.props;
-    // tic[0][0] = 2;
-    // socket.emit('MakeMove',
-    // {
-    //   array: tic,
-    //   room: this.props.room
-    // })
+    tic[index] = 2;
+    socket.emit('MakeMove',
+    {
+      array: tic,
+      room: this.props.room
+    })
   }
 
   leaveRoom = () =>{
@@ -81,15 +80,16 @@ class Tic extends Component {
           </div>
           <div className="tic-contain">
             <div className="tic-board">
-              {
+              {/* {
                 (players.length == 2)
                   ? this.gameStatus()
                   : (
-                    <Dimmer active inverted>
-                      <Loader size='massive'>Waiting For More Players</Loader>
-                    </Dimmer>
+                <Dimmer active inverted>
+                <Loader size='massive'>Waiting For More Players</Loader>
+                </Dimmer>
                   )
-              }
+              } */}
+              {this.gameStatus()}
               </div>
           </div>
           <div className="possible-chat">
