@@ -11,8 +11,14 @@ class App extends Component {
     this.state = {
       socket: socketIOClient("localhost:4001"),
       name:'',
-      room:''
+      room:'',
+      game: false
     } ;
+  }
+  toggleGame = () =>{
+    this.setState({
+      game: true
+    });
   }
 
   handleChanges = (event)=>{
@@ -23,22 +29,26 @@ class App extends Component {
   }
 
   makeGame = () => {
-    const {socket} = this.state
-    const roomName = Math.floor(Math.random()*10000)
-    console.log(roomName)
-    socket.emit("createRoom", roomName)
+    const { socket, name, game } = this.state
 
-    socket.on("newGame", roomName=>{
-      console.log(roomName)
-      this.setState({
-        room: roomName
-      });
-    })
+    if(name != '' && game){
+      const roomName = Math.floor(Math.random()*10000)
+      socket.emit("createRoom", roomName)
+      socket.on("newGame", roomName=>{
+        console.log(roomName)
+        this.setState({
+          room: roomName
+        });
+      })
+    }
   }
 
   joinGame=()=>{
-    const {socket,room} = this.state;
-    socket.emit('joinRoom', room )
+    const { socket, room, game, name } = this.state;
+    
+    if(name != '' && game && room != ''){
+      socket.emit('joinRoom', room )
+    }
   }
 
   render() {
@@ -46,7 +56,7 @@ class App extends Component {
 
     return (
       <div className="app-contain">
-        <Route exact path="/" render={()=><GameForm join={this.joinGame} sub = {this.makeGame} change={this.handleChanges}/> }/>
+        <Route exact path="/" render={()=><GameForm toggle={this.toggleGame} join={this.joinGame} sub = {this.makeGame} change={this.handleChanges}/> }/>
         <Route path = "/tic-tac-toe" render={()=> <Tic socket ={this.state.socket} name= {this.state.name} room = {this.state.room}/>}/>
 
       </div>

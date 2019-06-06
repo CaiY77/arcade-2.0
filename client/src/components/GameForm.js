@@ -22,6 +22,7 @@ class GameForm extends Component {
     this.setState({
       game: value
     })
+    this.props.toggle();
   }
 
   render() {
