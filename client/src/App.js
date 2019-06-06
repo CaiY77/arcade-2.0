@@ -13,6 +13,7 @@ class App extends Component {
       name:'',
       room:'',
       game: '',
+      players: [],
       message: '',
       clear: false
     } ;
@@ -34,13 +35,15 @@ class App extends Component {
   makeGame = () => {
     const { socket, name, game } = this.state
 
-    if(name != '' && game != ''){
+    if(name !== '' && game !== ''){
       const roomName = Math.floor(Math.random()*10000)
-      socket.emit("createRoom", roomName)
-      socket.on("newGame", roomName=>{
-        console.log(roomName)
+      socket.emit("createRoom", {
+        room: roomName,
+        who: name
+      })
+      socket.on("newGame", data=>{
         this.setState({
-          room: roomName
+          room: data.room
         });
       })
     }
@@ -49,9 +52,13 @@ class App extends Component {
   joinGame=()=>{
     const { socket, room, game, name } = this.state;
 
-    if(name != '' && game != '' && room != ''){
+    if(name !== '' && game !== '' && room !== ''){
       console.log('in')
-      socket.emit('joinRoom', room )
+      socket.emit('joinRoom', {
+        room: room,
+        who: name
+      })
+
       socket.on("msg", msg=>{
         this.setState({
           message: msg.message,
@@ -63,12 +70,11 @@ class App extends Component {
 
 
   render() {
-    const {socket, room, message} = this.state
-
+    const {socket, room, message, players} = this.state
     return (
       <div className="app-contain">
         <Route exact path="/" render={()=><GameForm game={this.state.game} clear={this.state.clear} message={message} handleGame={this.handleGame} join={this.joinGame} sub = {this.makeGame} change={this.handleChanges}/> }/>
-        <Route path = "/tic-tac-toe" render={()=> <Tic socket ={this.state.socket} name= {this.state.name} room = {this.state.room}/>}/>
+        <Route path = "/tic-tac-toe" render={()=> <Tic players= {players} socket ={this.state.socket} name= {this.state.name} room = {this.state.room}/>}/>
       </div>
     );
   }
