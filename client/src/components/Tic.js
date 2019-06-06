@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import socketIOClient from 'socket.io-client'
-import { Dimmer, Loader, Segment } from 'semantic-ui-react'
+import { Dimmer, Loader} from 'semantic-ui-react'
 import '../App.css'
 
 class Tic extends Component {
@@ -33,7 +32,6 @@ class Tic extends Component {
 
   socketWatch = () => {
     const {socket} = this.props;
-    const {players} = this.props
     socket.on('MakeMove',data =>{
       this.setState({
         tic: data.array,
@@ -48,6 +46,7 @@ class Tic extends Component {
   change = (index) => {
     const { tic, turnP1} = this.state;
     const {socket, id, players} = this.props;
+
     if(turnP1 && id === players[0]){
 
         tic[index] = 1
@@ -57,8 +56,9 @@ class Tic extends Component {
           room: this.props.room,
           turn: !turnP1
         })
-
+        this.checkWinner();
     }
+
     if(!turnP1 && id === players[1]){
 
         tic[index] = 2
@@ -68,9 +68,26 @@ class Tic extends Component {
           room: this.props.room,
           turn: !turnP1
         })
-
+        this.checkWinner();
     }
 
+  }
+
+  checkWinner = () => {
+    let player1 = this.playerCurrentStanding(1);
+    let player2 = this.playerCurrentStanding(2);
+    
+  }
+
+  playerCurrentStanding = (who) => {
+    const { tic } = this.state
+    let array=[];
+    tic.forEach((value,index)=>{
+      if(value === who){
+        array.push(index);
+      }
+    })
+    return array
   }
 
   leaveRoom = () =>{
@@ -81,6 +98,7 @@ class Tic extends Component {
   render() {
     this.socketWatch();
     const { players } = this.props
+    const { turnP1 } = this.state
     return (
       <div className="tic-js">
         <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">GAME SELECT</button></Link>
@@ -97,16 +115,20 @@ class Tic extends Component {
           </div>
           <div className="tic-contain">
             <div className="tic-board">
-              {/* {
-                (players.length == 2)
-                  ? this.gameStatus()
-                  : (
-                <Dimmer active inverted>
-                <Loader size='massive'>Waiting For More Players</Loader>
-                </Dimmer>
-                  )
-              } */}
               {this.gameStatus()}
+              {
+                (players.length === 2)
+                  ? (
+                    (turnP1)
+                      ? <h1>Player 1, Make your Move!</h1>
+                      : <h1>Player 2, Make your Move!</h1>
+                  )
+                  : (
+                    <Dimmer active inverted>
+                      <Loader size='massive'>Waiting For Another Player</Loader>
+                    </Dimmer>
+                  )
+              }
               </div>
           </div>
           <div className="possible-chat">
