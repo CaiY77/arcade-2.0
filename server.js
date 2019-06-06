@@ -25,8 +25,15 @@ io.on('connection', socket => {
     if(people < 2){
       socket.join(`${roomName}`)
       console.log(`${socket.id} joined ${roomName}`)
+      socket.emit('msg', {
+        message:`COME ON IN!!!`,
+        clear: true
+      })
     } else {
-      socket.emit('error', { message:`Opps, looks like that room is full`})
+      socket.emit('msg', {
+         message:`Opps, looks like that room ${roomName} is full`,
+         clear: false
+       })
     }
     console.log(io.sockets.adapter.rooms[roomName].length)
   })

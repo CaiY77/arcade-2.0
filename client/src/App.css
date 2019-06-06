@@ -28,6 +28,9 @@
   height:100vh;
   padding-top: 10vh;
 }
+.error-form{
+  text-align: center;
+}
 .label-style{
   font-size: 20pt !important;
 }

@@ -12,18 +12,6 @@ const GameOptions = [
 ]
 
 class GameForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      game:''
-    };
-  }
-  handleGame=(value)=>{
-    this.setState({
-      game: value
-    })
-    this.props.toggle();
-  }
 
   render() {
     return (<div className="form-contain">
@@ -40,9 +28,9 @@ class GameForm extends Component {
                 </Form.Field>
                 <Form.Field>
                   <label className="font label-style">SELECT A GAME</label>
-                  <Form.Select onChange={(e, {value}) => this.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...'/>
+                  <Form.Select onChange={(e, {value}) => this.props.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...'/>
                 </Form.Field>
-                <Link to={`/${this.state.game}`}><button className="font input-field button-style" onClick={()=>this.props.sub()} type='submit'>CREATE GAME!</button></Link>
+                <Link to={`/${this.props.game}`}><button className="font input-field button-style" onClick={()=>this.props.sub()} type='submit'>CREATE GAME!</button></Link>
               </Form>
             </Grid.Column>
             <Grid.Column>
@@ -57,15 +45,24 @@ class GameForm extends Component {
                 </Form.Field>
                 <Form.Field>
                   <label className="font label-style">SELECT A GAME</label>
-                  <Form.Select onChange={(e, {value}) => this.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...' />
+                  <Form.Select onChange={(e, {value}) => this.props.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...' />
                 </Form.Field>
-                <Link to={`/${this.state.game}`}><button className="font input-field button-style" onClick={()=>this.props.join()} type='submit'>JOIN GAME!</button></Link>
+                <button className="font input-field button-style" onClick={()=>this.props.join()} type='submit'>CHECK</button>
+                {
+                  (this.props.clear)
+                    ? <Link to={`/${this.props.game}`}><button className="font input-field button-style">JOIN GAME!</button></Link>
+                    : null
+                }
               </Form>
             </Grid.Column>
           </Grid>
           <Divider vertical className="font label-style">OR</Divider>
         </Segment>
       </div>
+
+      <h1 className="font error-form">{this.props.err}</h1>
+
+
     </div>);
   }
 
