@@ -9,7 +9,8 @@ class Tic extends Component {
     super(props);
     this.state = {
       tic: [0,0,0,0,0,0,0,0,0],
-      turnP1: true
+      turnP1: true,
+      GO: false
     };
   }
 
@@ -44,10 +45,10 @@ class Tic extends Component {
   }
 
   change = (index) => {
-    const { tic, turnP1} = this.state;
+    const { tic, turnP1 , GO} = this.state;
     const {socket, id, players} = this.props;
 
-    if(turnP1 && id === players[0]){
+    if(turnP1 && id === players[0] && !GO){
 
         tic[index] = 1
         socket.emit('MakeMove',
@@ -59,7 +60,7 @@ class Tic extends Component {
         this.checkWinner();
     }
 
-    if(!turnP1 && id === players[1]){
+    if(!turnP1 && id === players[1] && !GO){
 
         tic[index] = 2
         socket.emit('MakeMove',
@@ -76,7 +77,49 @@ class Tic extends Component {
   checkWinner = () => {
     let player1 = this.playerCurrentStanding(1);
     let player2 = this.playerCurrentStanding(2);
-    
+
+    if (player2.length == 4) {
+      console.log("tie")
+    }
+    else if(this.Win(player1)){
+      console.log("player 1 wins")
+      this.setState({
+        GO: true
+      });
+    }
+    else if(this.Win(player2)){
+      console.log("player 2 wins")
+      this.setState({
+        GO: true
+      });
+    }
+  }
+
+  Win = (player) => {
+    if (player.includes(0) && player.includes(1) && player.includes(2)) {
+      return true
+    }
+    if (player.includes(0) && player.includes(4) && player.includes(8)) {
+      return true
+    }
+    if (player.includes(0) && player.includes(3) && player.includes(6)) {
+      return true
+    }
+    if (player.includes(3) && player.includes(4) && player.includes(5)) {
+      return true
+    }
+    if (player.includes(6) && player.includes(7) && player.includes(8)) {
+      return true
+    }
+    if (player.includes(6) && player.includes(4) && player.includes(2)) {
+      return true
+    }
+    if (player.includes(2) && player.includes(5) && player.includes(8)) {
+      return true
+    }
+    if (player.includes(1) && player.includes(4) && player.includes(7)) {
+      return true
+    }
   }
 
   playerCurrentStanding = (who) => {
@@ -120,8 +163,8 @@ class Tic extends Component {
                 (players.length === 2)
                   ? (
                     (turnP1)
-                      ? <h1>Player 1, Make your Move!</h1>
-                      : <h1>Player 2, Make your Move!</h1>
+                      ? <h1 className="font">Player 1, Make your Move!</h1>
+                      : <h1 className="font">Player 2, Make your Move!</h1>
                   )
                   : (
                     <Dimmer active inverted>
