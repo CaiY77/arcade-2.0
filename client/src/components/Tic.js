@@ -43,7 +43,6 @@ class Tic extends Component {
     })
   }
   change = () => {
-    console.log("changing")
     const {tic} = this.state;
     const {socket} = this.props;
     tic[0][0] = 2;
@@ -53,12 +52,18 @@ class Tic extends Component {
       room: this.props.room
     })
   }
+  
+  leaveRoom = () =>{
+    const {socket} = this.props;
+    socket.emit('leaveRoom',this.props.room);
+  }
 
   render() {
     this.socketWatch();
     console.log(this.state.tic)
     return (
       <div className="tic-js">
+        <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">GAME SELECT</button></Link>
         <h1 className="font game-title">TIC-TAC-TOE</h1>
         <div className="tic-content-contain">
           <div className="game-info">

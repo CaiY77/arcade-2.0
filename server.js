@@ -16,7 +16,6 @@ io.on('connection', socket => {
   socket.on('createRoom', roomName=>{
     console.log(`${socket.id} created a room: ${roomName}`)
     socket.join(`${roomName}`)
-    console.log(io.sockets.adapter.rooms[roomName].length)
     socket.emit('newGame', roomName)
   })
 
@@ -35,7 +34,10 @@ io.on('connection', socket => {
          clear: false
        })
     }
-    console.log(io.sockets.adapter.rooms[roomName].length)
+  })
+  
+  socket.on('leaveRoom',roomName=>{
+    socket.leave(`${roomName}`)
   })
 
   socket.on('disconnect', () => {
