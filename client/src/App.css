@@ -8,6 +8,7 @@
 .app-contain{
   background: url(./images/paper.jpg);
   background-size: cover;
+  height: 100vh;
 }
 .app-title{
   text-align:center;
@@ -42,6 +43,7 @@
 .button-style{
   font-size: 20pt;
   padding: 10px;
+  margin-right: 25px;
 }
 
 input[type="text"]
@@ -53,14 +55,14 @@ input[type="text"]
 
 .tic-container {
   margin: auto;
-  width: 45vw;
-  height: 45vw;
+  width: 30vw;
+  height: 30vw;
   display: flex;
   flex-wrap: wrap;
 }
 .box{
-  width: 15vw;
-  height: 15vw;
+  width: 10vw;
+  height: 10vw;
   border:solid black 1px;
 }
 .player1{
