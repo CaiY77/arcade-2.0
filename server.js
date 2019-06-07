@@ -8,8 +8,13 @@ const io = socketIO(server)
 
 io.on('connection', socket => {
 console.log(`${socket.id} connected`)
+
   socket.on('MakeMove', data => {
     io.to(`${data.room}`).emit('MakeMove', data);
+  })
+
+  socket.on('results', data => {
+    io.to(`${data.room}`).emit('results', data.result);
   })
 
   socket.on('createRoom', data=>{

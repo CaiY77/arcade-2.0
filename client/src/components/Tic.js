@@ -10,7 +10,8 @@ class Tic extends Component {
     this.state = {
       tic: [0,0,0,0,0,0,0,0,0],
       turnP1: true,
-      GO: false
+      GO: false,
+      result: ''
     };
   }
 
@@ -41,6 +42,12 @@ class Tic extends Component {
     })
     socket.on('updatePlayers', client=>{
       this.props.update(client)
+    })
+    socket.on('results', result => {
+      this.setState({
+        result: result,
+        GO: true
+      });
     })
   }
 
@@ -75,23 +82,27 @@ class Tic extends Component {
   }
 
   checkWinner = () => {
+    const { socket, room } = this.props
     let player1 = this.playerCurrentStanding(1);
     let player2 = this.playerCurrentStanding(2);
 
-    if (player2.length == 4) {
-      console.log("tie")
+    if (player1.length == 5) {
+      socket.emit('results', {
+        result: 'TIE',
+        room: room
+      })
     }
     else if(this.Win(player1)){
-      console.log("player 1 wins")
-      this.setState({
-        GO: true
-      });
+      socket.emit('results', {
+        result: 'PLAYER ONE',
+        room: room
+      })
     }
     else if(this.Win(player2)){
-      console.log("player 2 wins")
-      this.setState({
-        GO: true
-      });
+      socket.emit('results', {
+        result: 'PLAYER TWO',
+        room: room
+      })
     }
   }
 
@@ -141,7 +152,7 @@ class Tic extends Component {
   render() {
     this.socketWatch();
     const { players } = this.props
-    const { turnP1 } = this.state
+    const { turnP1, GO } = this.state
     return (
       <div className="tic-js">
         <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">GAME SELECT</button></Link>
@@ -160,16 +171,23 @@ class Tic extends Component {
             <div className="tic-board">
               {this.gameStatus()}
               {
-                (players.length === 2)
+                (GO)
                   ? (
-                    (turnP1)
-                      ? <h1 className="font">Player 1, Make your Move!</h1>
-                      : <h1 className="font">Player 2, Make your Move!</h1>
-                  )
-                  : (
                     <Dimmer active inverted>
-                      <Loader size='massive'>Waiting For Another Player</Loader>
+                      <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">BACK TO LOBBY</button></Link>
                     </Dimmer>
+                  )
+                  :((players.length === 2)
+                    ? (
+                      (turnP1)
+                        ? <h1 className="font">Player 1, Make your Move!</h1>
+                        : <h1 className="font">Player 2, Make your Move!</h1>
+                    )
+                    : (
+                      <Dimmer active inverted>
+                        <Loader size='massive'>Waiting For Another Player . . .</Loader>
+                      </Dimmer>
+                    )
                   )
               }
               </div>
