@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { Dimmer, Loader} from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 import '../App.css'
 
 class Tic extends Component {
@@ -11,7 +12,9 @@ class Tic extends Component {
       tic: [0,0,0,0,0,0,0,0,0],
       turnP1: true,
       GO: false,
-      result: ''
+      result: '',
+      say:'',
+      chat: []
     };
   }
 
@@ -144,6 +147,18 @@ class Tic extends Component {
     return array
   }
 
+  handleSay = (e) =>{
+    this.setState({
+      say: e.target.value
+    });
+  }
+  saySomething = () => {
+    console.log("boo")
+  }
+  showMessage = () => {
+    
+  }
+
   leaveRoom = () =>{
     const {socket} = this.props;
     socket.emit('leaveRoom',this.props.room);
@@ -209,7 +224,14 @@ class Tic extends Component {
             }
 
           </div>
-          <div className="possible-chat">
+          <div className="chat">
+            <div className="chat-box">
+              <h1 className="font chat-style">CHAT ROOM</h1>
+            </div>
+            <Form onSubmit={()=>this.saySomething()}>
+              <input onChange={this.handleSay} className="say" type="text"/>
+            </Form>
+
           </div>
         </div>
       </div>
