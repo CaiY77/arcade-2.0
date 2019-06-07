@@ -49,8 +49,8 @@ console.log(`${socket.id} connected`)
     }
   })
 
-  socket.on('update',roomName=>{
-    io.to(`${data.room}`).emit('MakeMove', data.array);
+  socket.on('say',data=>{
+    io.to(`${data.room}`).emit('say', data.chat);
   })
 
   socket.on('leaveRoom',roomName=>{

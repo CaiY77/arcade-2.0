@@ -52,6 +52,11 @@ class Tic extends Component {
         GO: true
       });
     })
+    socket.on('say', chat =>{
+      this.setState({
+        chat: chat
+      });
+    })
   }
 
   change = (index) => {
@@ -153,10 +158,32 @@ class Tic extends Component {
     });
   }
   saySomething = () => {
-    console.log("boo")
+    const {say, chat} = this.state
+    const {socket, name, room, id, players} = this.props
+    let msg = {
+      who: name,
+      what: say,
+      key: (id === players[0]) ? true : false
+    }
+    chat.push(msg);
+    socket.emit('say', {
+      chat: chat,
+      room: room
+    })
+    this.setState({
+      say: ''
+    });
   }
+
   showMessage = () => {
-    
+    const {chat} = this.state
+    let array = chat.map(msg =>{
+      return (<div className="msg-pair">
+        <p className="font who"><span className={(msg.key) ? "redTxt" : "blueTxt"}>{msg.who}</span> says: </p>
+        <p className="font what">{msg.what}</p>
+      </div>)
+    })
+    return array
   }
 
   leaveRoom = () =>{
@@ -167,7 +194,7 @@ class Tic extends Component {
   render() {
     this.socketWatch();
     const { players, id, name} = this.props
-    const { turnP1, GO, result} = this.state
+    const { turnP1, GO, result, say} = this.state
     return (
       <div className="tic-js">
         <h1 className="font game-title">TIC-TAC-TOE</h1>
@@ -227,9 +254,12 @@ class Tic extends Component {
           <div className="chat">
             <div className="chat-box">
               <h1 className="font chat-style">CHAT ROOM</h1>
+              <div className='messages'>
+                {this.showMessage()}
+              </div>
             </div>
             <Form onSubmit={()=>this.saySomething()}>
-              <input onChange={this.handleSay} className="say" type="text"/>
+              <input value={say} onChange={this.handleSay} className="say" type="text"/>
             </Form>
 
           </div>

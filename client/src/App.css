@@ -70,17 +70,17 @@ input[type="text"]
   height: 20vh;
 }
 .room , .player{
-border: solid;
-text-align: center;
-border-radius: 4% 95% 4% 95%/95% 4% 92% 4%;
+  border: solid;
+  text-align: center;
+  border-radius: 4% 95% 4% 95%/95% 4% 92% 4%;
 }
 .room-num{
-text-align: center;
-font-size: 80pt;
+  text-align: center;
+  font-size: 80pt;
 }
 .name{
-font-size: 40pt;
-text-align: center;
+  font-size: 40pt;
+  text-align: center;
 }
 .leave-button{
   position: absolute;
@@ -123,31 +123,62 @@ padding: 1vw;
   border: solid 3px;
   border-radius: 1% 95% 1% 95%/95% 1% 92% 1%;
   margin-bottom: 1vh;
+  display:flex;
+  flex-direction: column;
 }
 .chat-style{
   text-align: center;
   font-size: 35pt;
   border-bottom: solid;
+  padding-bottom: 10px;
+  flex: 1;
+}
+.say{
+  width: 100%;
+}
+.msg-pair{
+  display:flex;
+  flex-direction: column;
+}
+.who{
+  font-size: 25pt;
+  padding: 0;
+  margin: 0;
+  height: 5vh;
+}
+.redTxt{
+  color: red;
+}
+.blueTxt{
+  color: blue;
+}
+.what{
+  font-size: 20pt;
+  padding: 0;
+  margin: 0;
+  height: 4vh;
+  width: 100%;
+  word-wrap: break-word;
+  line-height: 0.7;
+}
+.messages{
+  padding:0 1vh 1vh 1vh;
+  flex: 9;
+  overflow-y: auto;
 }
 .box{
   width: 12vw;
   height: 12vw;
 }
-.say{
-  width: 100%;
-}
 .box0, .box3, .box6 {
   border-right: solid;
 }
-
 .box0, .box1, .box2 {
   border-bottom: solid;
 }
-
 .box2, .box5, .box8 {
   border-left: solid;
 }
-
 .box6, .box7, .box8 {
   border-top: solid;
 }
