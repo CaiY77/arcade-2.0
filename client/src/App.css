@@ -68,12 +68,25 @@ input[type="text"]
   text-align: center;
   font-size: 90pt;
   height: 20vh;
-
-  border: solid orange;
+}
+.room , .player{
+border: solid;
+text-align: center;
+}
+.room-num{
+text-align: center;
+font-size: 80pt;
+}
+.name{
+font-size: 40pt;
+text-align: center;
+}
+.leave-button{
+  margin-top: 25vh;
+  text-align: center;
 }
 .tic-content-contain{
   display: flex;
-  border: solid blue 1px;
   height: 100%;
 }
 .tic-board {
@@ -84,7 +97,6 @@ input[type="text"]
 }
 .game-info{
 flex: 1;
-border: solid green 1px;
 }
 .tic-contain{
   flex: 3;

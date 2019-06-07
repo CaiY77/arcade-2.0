@@ -158,18 +158,27 @@ class Tic extends Component {
         <h1 className="font game-title">TIC-TAC-TOE</h1>
         <div className="tic-content-contain">
           <div className="game-info">
-            <h1 className="font">{this.props.room}</h1>
+            <h1 className="font room">ROOM NUMBER</h1>
+            <h1 className="font room-num">{this.props.room}</h1>
             {
               (id === players[0])
-                ? <h1 className ="font">PLAYER ONE : {name}</h1>
+                ? (<div>
+                  <h1 className ="font player"> YOU ARE PLAYER ONE </h1>
+                  <h1 className="font name">{name}</h1>
+                </div>)
                 : null
             }
             {
               (id === players[1])
-                ? <h1 className ="font">PLAYER TWO : {name}</h1>
+                ? (<div>
+                  <h1 className ="font player"> YOU ARE PLAYER TWO </h1>
+                  <h1 className="font name">{name}</h1>
+                </div>)
                 : null
             }
-            <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">GAME SELECT</button></Link>
+            <div className="leave-button">
+              <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">Leave Game</button></Link>
+            </div>
           </div>
           <div className="tic-contain">
             <div className="tic-board">
@@ -189,13 +198,11 @@ class Tic extends Component {
                   :((players.length === 2)
                     ? (
                       (turnP1)
-                        ? <h1 className="font">Player 1, Make your Move!</h1>
-                        : <h1 className="font">Player 2, Make your Move!</h1>
+                        ? <h1 className="font">Player 1! Please Make your Move!</h1>
+                        : <h1 className="font">Player 2! Please Make your Move!</h1>
                     )
                     : (
-                      <Dimmer active inverted>
-                        <Loader size='massive'>Waiting For Another Player . . .</Loader>
-                      </Dimmer>
+                      null
                     )
                   )
               }
@@ -211,3 +218,6 @@ class Tic extends Component {
 }
 
 export default Tic;
+{/* <Dimmer active inverted>
+  <Loader size='massive'>Waiting For Another Player . . .</Loader>
+</Dimmer> */}
