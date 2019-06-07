@@ -60,12 +60,16 @@ input[type="text"]
 
 /* GAME */
 .tic-js{
-  height: 85vh;
+  height: 80vh;
 }
 .game-title{
+  margin: 0;
+  padding: 0;
   text-align: center;
   font-size: 90pt;
-  height: 15vh;
+  height: 20vh;
+
+  border: solid orange;
 }
 .tic-content-contain{
   display: flex;
@@ -78,7 +82,6 @@ input[type="text"]
   display: flex;
   flex-wrap: wrap;
 }
-
 .game-info{
 flex: 1;
 border: solid green 1px;
@@ -87,15 +90,32 @@ border: solid green 1px;
   flex: 3;
   border: solid yellow 1px;
 }
+.result-style{
+  color: black !important;
+  font-size:70pt;
+}
 .possible-chat{
 flex:1;
 border: solid red 1px;
 }
-
 .box{
   width: 13vw;
   height: 13vw;
-  border:solid black 1px;
+}
+.box0, .box3, .box6 {
+  border-right: solid;
+}
+
+.box0, .box1, .box2 {
+  border-bottom: solid;
+}
+
+.box2, .box5, .box8 {
+  border-left: solid;
+}
+
+.box6, .box7, .box8 {
+  border-top: solid;
 }
 .player1{
   background: url('./images/o.png');

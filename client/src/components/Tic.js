@@ -20,12 +20,12 @@ class Tic extends Component {
     let show = tic.map((box,index) =>{
 
         if(box === 1){
-          return(<div key={index} onClick={()=>this.change(index)} className = "box player1"></div>)
+          return(<div key={index} onClick={()=>this.change(index)} className = {`box box${index} player1`}></div>)
         }
         else if(box === 2){
-          return(<div key={index} onClick={()=>this.change(index)} className = "box player2"></div>)
+          return(<div key={index} onClick={()=>this.change(index)} className = {`box box${index} player2`}></div>)
         } else {
-          return(<div key={index} onClick={()=>this.change(index)} className = "box"></div>)
+          return(<div key={index} onClick={()=>this.change(index)} className = {`box box${index} `}></div>)
         }
 
     })
@@ -151,21 +151,25 @@ class Tic extends Component {
 
   render() {
     this.socketWatch();
-    const { players } = this.props
+    const { players, id, name} = this.props
     const { turnP1, GO, result} = this.state
     return (
       <div className="tic-js">
-        <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">GAME SELECT</button></Link>
         <h1 className="font game-title">TIC-TAC-TOE</h1>
         <div className="tic-content-contain">
           <div className="game-info">
             <h1 className="font">{this.props.room}</h1>
-            <h1 className="font"> Player 1 : {players[0]}</h1>
             {
-              (players[1])
-                ? <h1 className="font"> Player 2 : {players[1]}</h1>
-                : <h1 className="font"> Player 2 : Waiting...</h1>
+              (id === players[0])
+                ? <h1 className ="font">PLAYER ONE : {name}</h1>
+                : null
             }
+            {
+              (id === players[1])
+                ? <h1 className ="font">PLAYER TWO : {name}</h1>
+                : null
+            }
+            <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">GAME SELECT</button></Link>
           </div>
           <div className="tic-contain">
             <div className="tic-board">

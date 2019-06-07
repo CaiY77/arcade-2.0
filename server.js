@@ -18,8 +18,6 @@ console.log(`${socket.id} connected`)
   })
 
   socket.on('createRoom', data=>{
-    socket.username = data.who
-    console.log(`${socket.username} created a room: ${data.room}`)
     socket.join(`${data.room}`)
     io.in(data.room).clients((err,clients)=>{
       socket.emit('newGame', {
@@ -34,10 +32,7 @@ console.log(`${socket.id} connected`)
     let people = io.sockets.adapter.rooms[data.room].length
     if(people < 2){
       socket.join(`${data.room}`)
-      console.log(`${socket.id} joined ${data.room}`)
-
       io.in(data.room).clients((err,clients)=>{
-
         socket.emit('msg', {
           message:`COME ON IN!!!`,
           clear: true,
@@ -50,7 +45,7 @@ console.log(`${socket.id} connected`)
       socket.emit('msg', {
          message:`Opps, looks like room ${data.room} is full`,
          clear: false
-       })
+      })
     }
   })
 
