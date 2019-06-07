@@ -90,17 +90,21 @@ text-align: center;
   height: 100%;
 }
 .tic-board {
-  width: 39vw;
-  height: 39vw;
+  width: 36vw;
+  height: 36vw;
   display: flex;
   flex-wrap: wrap;
+  margin: auto;
 }
 .game-info{
 flex: 1;
 }
 .tic-contain{
   flex: 3;
-  border: solid yellow 1px;
+}
+.turn{
+  text-align: center;
+  font-size: 35pt;
 }
 .result-style{
   color: black !important;
@@ -111,8 +115,8 @@ flex:1;
 border: solid red 1px;
 }
 .box{
-  width: 13vw;
-  height: 13vw;
+  width: 12vw;
+  height: 12vw;
 }
 .box0, .box3, .box6 {
   border-right: solid;

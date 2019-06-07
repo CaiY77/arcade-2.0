@@ -183,30 +183,31 @@ class Tic extends Component {
           <div className="tic-contain">
             <div className="tic-board">
               {this.gameStatus()}
-              {
-                (GO)
+            </div>
+            {
+              (GO)
+                ? (
+                  <Dimmer active inverted>
+                    {
+                      (result === 'TIE')
+                        ? <h1 className="font result-style" > IT'S A DRAW ! ! ! </h1>
+                        : <h1 className="font result-style" >{result} WINS ! ! !</h1>
+                    }
+                    <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">BACK TO LOBBY</button></Link>
+                  </Dimmer>
+                )
+                :((players.length === 2)
                   ? (
-                    <Dimmer active inverted>
-                      {
-                        (result === 'TIE')
-                          ? <h1 className="font result-style" > IT'S A DRAW ! ! ! </h1>
-                          : <h1 className="font result-style" >{result} WINS ! ! !</h1>
-                      }
-                      <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">BACK TO LOBBY</button></Link>
-                    </Dimmer>
+                    (turnP1)
+                      ? <h1 className="font turn">Player 1! Please Make your Move!</h1>
+                      : <h1 className="font turn">Player 2! Please Make your Move!</h1>
                   )
-                  :((players.length === 2)
-                    ? (
-                      (turnP1)
-                        ? <h1 className="font">Player 1! Please Make your Move!</h1>
-                        : <h1 className="font">Player 2! Please Make your Move!</h1>
-                    )
-                    : (
+                  : (
                       null
-                    )
                   )
-              }
-              </div>
+                )
+            }
+
           </div>
           <div className="possible-chat">
           </div>
