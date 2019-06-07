@@ -94,7 +94,7 @@ class Tic extends Component {
     let player1 = this.playerCurrentStanding(1);
     let player2 = this.playerCurrentStanding(2);
 
-    if (player1.length == 5) {
+    if (player1.length === 5) {
       socket.emit('results', {
         result: 'TIE',
         room: room
@@ -245,7 +245,9 @@ class Tic extends Component {
                       : <h1 className="font turn">Player 2! Please Make your Move!</h1>
                   )
                   : (
-                      null
+                    <Dimmer active inverted>
+                      <Loader size='massive'>Waiting For Another Player . . .</Loader>
+                    </Dimmer>
                   )
                 )
             }
@@ -271,6 +273,3 @@ class Tic extends Component {
 }
 
 export default Tic;
-{/* <Dimmer active inverted>
-  <Loader size='massive'>Waiting For Another Player . . .</Loader>
-</Dimmer> */}
