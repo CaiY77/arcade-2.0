@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom'
 import socketIOClient from 'socket.io-client'
-import Tic from './components/Tic'
 import GameForm from './components/GameForm'
-
+import Tic from './components/Tic'
+import AnotherGame from './components/AnotherGame'
 
 class App extends Component {
   constructor(props) {
@@ -100,6 +100,17 @@ class App extends Component {
 
         <Route path = "/tic-tac-toe" render={()=>
           <Tic
+            update={this.updatePlayers}
+            players= {players}
+            socket ={socket}
+            id={socketID}
+            name= {name}
+            room = {room}
+          />
+        }/>
+
+        <Route path = "/another-game" render={()=>
+          <AnotherGame
             update={this.updatePlayers}
             players= {players}
             socket ={socket}

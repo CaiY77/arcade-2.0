@@ -8,6 +8,11 @@ const GameOptions = [
     key: 1,
     value: "tic-tac-toe",
     text: 'Tic-Tac-Toe'
+  },
+  {
+    key: 2,
+    value: "another-game",
+    text: 'Another Game'
   }
 ]
 
