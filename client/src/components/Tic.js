@@ -219,7 +219,7 @@ class Tic extends Component {
                 : null
             }
             <div className="leave-button">
-              <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">Leave Game</button></Link>
+              <Link to = '/'><button onClick={()=>{this.leaveRoom();this.props.leave()}} className="font input-field button-style">Leave Game</button></Link>
             </div>
           </div>
           <div className="tic-contain">

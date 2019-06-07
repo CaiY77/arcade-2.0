@@ -20,6 +20,13 @@ class App extends Component {
     } ;
   }
 
+  handleLeave =()=>{
+    this.setState({
+      message: [],
+      clear: false
+    });
+  }
+
   handleChanges = (event)=>{
     const element = event.target
     const name = element.name
@@ -106,6 +113,7 @@ class App extends Component {
             id={socketID}
             name= {name}
             room = {room}
+            leave={this.handleLeave}
           />
         }/>
 
