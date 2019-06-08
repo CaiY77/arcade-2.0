@@ -235,7 +235,7 @@ class Tic extends Component {
                         ? <h1 className="font result-style" > IT'S A DRAW ! ! ! </h1>
                         : <h1 className="font result-style" >{result} WINS ! ! !</h1>
                     }
-                    <Link to = '/'><button onClick={()=>this.leaveRoom()} className="font input-field button-style">BACK TO LOBBY</button></Link>
+                    <Link to = '/'><button onClick={()=>{this.leaveRoom();this.props.leave()}} className="font input-field button-style">BACK TO LOBBY</button></Link>
                   </Dimmer>
                 )
                 :((players.length === 2)

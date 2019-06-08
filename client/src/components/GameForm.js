@@ -11,8 +11,8 @@ const GameOptions = [
   },
   {
     key: 2,
-    value: "another-game",
-    text: 'Another Game'
+    value: "connect-four",
+    text: 'Connect Four'
   }
 ]
 

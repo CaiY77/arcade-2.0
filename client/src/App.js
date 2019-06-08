@@ -3,7 +3,7 @@ import {Route} from 'react-router-dom'
 import socketIOClient from 'socket.io-client'
 import GameForm from './components/GameForm'
 import Tic from './components/Tic'
-import AnotherGame from './components/AnotherGame'
+import Connect from './components/Connect'
 
 class App extends Component {
   constructor(props) {
@@ -117,8 +117,8 @@ class App extends Component {
           />
         }/>
 
-        <Route path = "/another-game" render={()=>
-          <AnotherGame
+        <Route path = "/connect-four" render={()=>
+          <Connect
             update={this.updatePlayers}
             players= {players}
             socket ={socket}
