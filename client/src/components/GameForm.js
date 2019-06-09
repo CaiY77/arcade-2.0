@@ -20,7 +20,7 @@ class GameForm extends Component {
 
   render() {
     return (<div className="form-contain">
-      <h1 className="font app-title">ARCADE V2</h1>
+      <h1 className="font app-title">DODDLE ARCADE</h1>
 
       <div className="sizing">
         <Segment className="join-create-form">

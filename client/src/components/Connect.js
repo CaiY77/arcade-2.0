@@ -78,8 +78,13 @@ class Connect extends Component {
     });
   }
 
+  leaveRoom = () =>{
+    const {socket} = this.props;
+    socket.emit('leaveRoom',this.props.room);
+  }
+
   render() {
-    // this.socketWatch();
+    this.socketWatch();
     const { players, id, name, room} = this.props
     const {say, chat} = this.state
     return (

@@ -125,6 +125,7 @@ class App extends Component {
             id={socketID}
             name= {name}
             room = {room}
+            leave={this.handleLeave}
           />
         }/>
       </div>
