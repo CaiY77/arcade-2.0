@@ -193,15 +193,15 @@ class Tic extends Component {
 
   render() {
     this.socketWatch();
-    const { players, id, name} = this.props
+    const { players, id, name, room} = this.props
     const { turnP1, GO, result, say} = this.state
     return (
       <div className="tic-js">
         <h1 className="font game-title">TIC-TAC-TOE</h1>
-        <div className="tic-content-contain">
+        <div className="game-content-contain">
           <div className="game-info">
             <h1 className="font room">ROOM NUMBER</h1>
-            <h1 className="font room-num">{this.props.room}</h1>
+            <h1 className="font room-num">{room}</h1>
             {
               (id === players[0])
                 ? (<div>
@@ -222,7 +222,7 @@ class Tic extends Component {
               <Link to = '/'><button onClick={()=>{this.leaveRoom();this.props.leave()}} className="font input-field button-style">Leave Game</button></Link>
             </div>
           </div>
-          <div className="tic-contain">
+          <div className="game-space-contain">
             <div className="tic-board">
               {this.gameStatus()}
             </div>
@@ -247,6 +247,7 @@ class Tic extends Component {
                   : (
                     <Dimmer active inverted>
                       <Loader size='massive'>Waiting For Another Player . . .</Loader>
+                      <Link to = '/'><button onClick={()=>{this.leaveRoom();this.props.leave()}} className="font input-field button-style cancel-button">CANCEL</button></Link>
                     </Dimmer>
                   )
                 )

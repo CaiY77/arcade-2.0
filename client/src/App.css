@@ -57,6 +57,9 @@ input[type="text"]
   font-size: 20pt !important;
   padding: 5px 5px 5px 10px !important;
 }
+.cancel-button{
+  margin-top: 30vh;
+}
 
 /* GAME */
 .tic-js{
@@ -88,7 +91,7 @@ input[type="text"]
   left: 5.5vw;
   text-align: center;
 }
-.tic-content-contain{
+.game-content-contain{
   display: flex;
   height: 100%;
 }
@@ -103,7 +106,7 @@ input[type="text"]
 flex: 1;
 padding: 1vw;
 }
-.tic-contain{
+.game-space-contain{
   flex: 3;
 }
 .turn{
