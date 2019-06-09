@@ -13,7 +13,7 @@ class Connect extends Component {
       GO: false,
       result: '',
       board:[
-        [1,2,0,0,0,0,0],
+        [0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0],
@@ -46,10 +46,11 @@ class Connect extends Component {
 
     socket.on('MakeMove',data =>{
       this.setState({
-        tic: data.array,
+        board: data.array,
         turnP1: data.turn
       });
     })
+
     socket.on('updatePlayers', client=>{
       this.props.update(client)
     })
@@ -68,23 +69,32 @@ class Connect extends Component {
 
   change = (row,col) => {
     const { board, turnP1 , GO} = this.state;
-    const {socket, id, players} = this.props;
+    const {socket, id, players,name} = this.props;
 
     if(turnP1 && id === players[0] && !GO){
-
-
-        socket.emit('MakeMove',
-        {
-          array: board,
-          room: this.props.room,
-          turn: !turnP1
-        })
-        this.checkWinner();
+      for(let i = 5; i >= 0 ; i--){
+        if(board[i][col]===0){
+          board[i][col]= 1;
+          break;
+        }
+      }
+    socket.emit('MakeMove',
+    {
+      array: board,
+      room: this.props.room,
+      turn: !turnP1
+    })
+    this.checkWinner();
     }
 
     if(!turnP1 && id === players[1] && !GO){
-
-        
+      for(let i = 5; i >= 0 ; i--){
+        console.log(board[i][col])
+        if(board[i][col]===0){
+          board[i][col]= 2;
+          break;
+        }
+      }
         socket.emit('MakeMove',
         {
           array: board,
@@ -110,11 +120,13 @@ class Connect extends Component {
     })
     return array
   }
+
   handleSay = (e) =>{
     this.setState({
       say: e.target.value
     });
   }
+
   saySomething = () => {
     const {say, chat} = this.state
     const {socket, name, room, id, players} = this.props
