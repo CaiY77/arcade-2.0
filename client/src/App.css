@@ -51,7 +51,7 @@
   margin-right: 25px;
 }
 
-input[type="text"]
+input[type="text"], input[type="number"], .select-input
 {
   font-family:hand-writing !important;
   font-size: 20pt !important;

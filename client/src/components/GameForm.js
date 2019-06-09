@@ -46,7 +46,7 @@ class GameForm extends Component {
                 </Form.Field>
                 <Form.Field>
                   <label className="font label-style">ENTER ROOM CODE</label>
-                  <input type="text" className="input-field" onChange={this.props.change} name="room"/>
+                  <input type="number" className="input-field" onChange={this.props.change} name="room"/>
                 </Form.Field>
                 <Form.Field>
                   <label className="font label-style">SELECT A GAME</label>
