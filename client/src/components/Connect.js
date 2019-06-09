@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import { Form } from 'semantic-ui-react'
+import { Form, Dimmer,Loader } from 'semantic-ui-react'
 import '../App.css'
 
 class Connect extends Component {
@@ -153,7 +153,7 @@ class Connect extends Component {
   render() {
     this.socketWatch();
     const { players, id, name, room} = this.props
-    const {say, chat} = this.state
+    const {say, chat, turnP1, GO, result} = this.state
     return (
       <div>
         <h1 className="font game-title">CONNECT FOUR</h1>
@@ -186,6 +186,32 @@ class Connect extends Component {
             <div className="connect-board">
               {this.gameStatus()}
             </div>
+            {
+              (GO)
+                ? (
+                  <Dimmer active inverted>
+                    {
+                      (result === 'TIE')
+                        ? <h1 className="font result-style" > IT'S A DRAW ! ! ! </h1>
+                        : <h1 className="font result-style" >{result} WINS ! ! !</h1>
+                    }
+                    <Link to = '/'><button onClick={()=>{this.leaveRoom();this.props.leave()}} className="font input-field button-style">BACK TO LOBBY</button></Link>
+                  </Dimmer>
+                )
+                :((players.length === 2)
+                  ? (
+                    (turnP1)
+                      ? <h1 className="font turn">Player 1! Please Make your Move!</h1>
+                      : <h1 className="font turn">Player 2! Please Make your Move!</h1>
+                  )
+                  : (
+                    <Dimmer active inverted>
+                      <Loader size='massive'>Waiting For Another Player . . .</Loader>
+                      <Link to = '/'><button onClick={()=>{this.leaveRoom();this.props.leave()}} className="font input-field button-style cancel-button">CANCEL</button></Link>
+                    </Dimmer>
+                  )
+                )
+            }
           </div>
 
           <div className="chat">
