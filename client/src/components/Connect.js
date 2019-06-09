@@ -41,10 +41,6 @@ class Connect extends Component {
     return show
   }
 
-  change = (row,col) => {
-    console.log(`row: ${row} col: ${col}`)
-  }
-
   socketWatch = () => {
     const {socket} = this.props;
 
@@ -68,6 +64,40 @@ class Connect extends Component {
         chat: chat
       });
     })
+  }
+
+  change = (row,col) => {
+    const { board, turnP1 , GO} = this.state;
+    const {socket, id, players} = this.props;
+
+    if(turnP1 && id === players[0] && !GO){
+
+
+        socket.emit('MakeMove',
+        {
+          array: board,
+          room: this.props.room,
+          turn: !turnP1
+        })
+        this.checkWinner();
+    }
+
+    if(!turnP1 && id === players[1] && !GO){
+
+        
+        socket.emit('MakeMove',
+        {
+          array: board,
+          room: this.props.room,
+          turn: !turnP1
+        })
+        this.checkWinner();
+    }
+
+  }
+
+  checkWinner = () => {
+    console.log('checking..')
   }
 
   showMessage = () => {
