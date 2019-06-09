@@ -9,8 +9,11 @@ class Connect extends Component {
     this.state = {
       chat:[],
       say: '',
+      turnP1: true,
+      GO: false,
+      result: '',
       board:[
-        [0,0,0,0,0,0,0],
+        [1,2,0,0,0,0,0],
         [0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0],
@@ -18,6 +21,28 @@ class Connect extends Component {
         [0,0,0,0,0,0,0]
       ]
     };
+  }
+  gameStatus = () => {
+    const {board} = this.state;
+    let show = board.map((row,rindex) =>{
+
+        return row.map((col,cindex)=>{
+          if(col === 1){
+            return(<div key={Math.random()} onClick={()=>this.change(rindex,cindex)} className = {`piece piece1`}></div>)
+          }
+          else if(col === 2){
+            return(<div key={Math.random()} onClick={()=>this.change(rindex,cindex)} className = {`piece piece2`}></div>)
+          } else {
+            return(<div key={Math.random()} onClick={()=>this.change(rindex,cindex)} className = {`piece `}></div>)
+          }
+        })
+
+    })
+    return show
+  }
+
+  change = (row,col) => {
+    console.log(`row: ${row} col: ${col}`)
   }
 
   socketWatch = () => {
@@ -116,7 +141,9 @@ class Connect extends Component {
           </div>
 
           <div className="game-space-contain">
-
+            <div className="connect-board">
+              {this.gameStatus()}
+            </div>
           </div>
 
           <div className="chat">
