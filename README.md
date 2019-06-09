@@ -1,4 +1,4 @@
-# Arcade 2.0
+# Doodle Arcade
 
 ## WireFrames
 
