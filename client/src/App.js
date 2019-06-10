@@ -25,7 +25,12 @@ class App extends Component {
 
   handleLeave =()=>{
     this.setState({
-      message: [],
+      socketID:'',
+      name:'',
+      room:'',
+      game: '',
+      players: [],
+      message: '',
       clear: false
     });
   }
