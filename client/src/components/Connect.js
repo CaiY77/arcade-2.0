@@ -21,7 +21,31 @@ class Connect extends Component {
         [0,0,0,0,0,0,0]
       ]
     };
+    const {socket} = this.props
+    socket.on('say', chat =>{
+      this.setState({
+        chat: chat
+      });
+    })
+    socket.on('MakeMove',data =>{
+      this.setState({
+        board: data.array,
+        turnP1: data.turn
+      });
+    })
+
+    socket.on('updatePlayers', client=>{
+      this.props.update(client)
+    })
+    socket.on('results', result => {
+      this.setState({
+        result: result,
+        GO: true
+      });
+    })
+
   }
+
   gameStatus = () => {
     const {board} = this.state;
     let show = board.map((row,rindex) =>{
@@ -39,32 +63,6 @@ class Connect extends Component {
 
     })
     return show
-  }
-
-  socketWatch = () => {
-    const {socket} = this.props;
-
-    socket.on('MakeMove',data =>{
-      this.setState({
-        board: data.array,
-        turnP1: data.turn
-      });
-    })
-
-    socket.on('updatePlayers', client=>{
-      this.props.update(client)
-    })
-    socket.on('results', result => {
-      this.setState({
-        result: result,
-        GO: true
-      });
-    })
-    socket.on('say', chat =>{
-      this.setState({
-        chat: chat
-      });
-    })
   }
 
   change = (row,col) => {
@@ -111,8 +109,33 @@ class Connect extends Component {
             room: room
           })
         }
+        if(this.isTie()){
+          socket.emit('results', {
+            result: 'TIE',
+            room: room
+          })
+        }
     }
 
+  }
+
+  isTie = () => {
+    const { board } = this.state;
+    let counter = 0;
+
+    board.forEach(row =>{
+      row.forEach(col =>{
+        if(col === 2){
+          counter++;
+        }
+      })
+    })
+
+    if (counter === 21){
+      return true;
+    }
+
+    return false
   }
 
   checkWinner = (player) => {
@@ -194,7 +217,6 @@ class Connect extends Component {
   }
 
   render() {
-    this.socketWatch();
     const { players, id, name, room} = this.props
     const {say, chat, turnP1, GO, result} = this.state
     return (

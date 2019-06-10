@@ -16,26 +16,6 @@ class Tic extends Component {
       say:'',
       chat: []
     };
-  }
-
-  gameStatus = () => {
-    const {tic} = this.state;
-    let show = tic.map((box,index) =>{
-
-        if(box === 1){
-          return(<div key={index} onClick={()=>this.change(index)} className = {`box box${index} player1`}></div>)
-        }
-        else if(box === 2){
-          return(<div key={index} onClick={()=>this.change(index)} className = {`box box${index} player2`}></div>)
-        } else {
-          return(<div key={index} onClick={()=>this.change(index)} className = {`box box${index} `}></div>)
-        }
-
-    })
-    return show
-  }
-
-  socketWatch = () => {
     const {socket} = this.props;
     socket.on('MakeMove',data =>{
       this.setState({
@@ -57,6 +37,23 @@ class Tic extends Component {
         chat: chat
       });
     })
+  }
+
+  gameStatus = () => {
+    const {tic} = this.state;
+    let show = tic.map((box,index) =>{
+
+        if(box === 1){
+          return(<div key={index} onClick={()=>this.change(index)} className = {`box box${index} player1`}></div>)
+        }
+        else if(box === 2){
+          return(<div key={index} onClick={()=>this.change(index)} className = {`box box${index} player2`}></div>)
+        } else {
+          return(<div key={index} onClick={()=>this.change(index)} className = {`box box${index} `}></div>)
+        }
+
+    })
+    return show
   }
 
   change = (index) => {
@@ -192,7 +189,6 @@ class Tic extends Component {
   }
 
   render() {
-    this.socketWatch();
     const { players, id, name, room} = this.props
     const { turnP1, GO, result, say} = this.state
     return (
