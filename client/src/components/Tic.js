@@ -37,6 +37,13 @@ class Tic extends Component {
         chat: chat
       });
     })
+    socket.on('resetGame', data=>{
+      this.setState({
+        result: data.result,
+        GO: data.GO,
+        tic: data.tic
+      });
+    })
   }
 
   gameStatus = () => {
@@ -182,6 +189,15 @@ class Tic extends Component {
     })
     return array
   }
+  resetGame = () => {
+    const { socket, room} = this.props
+    socket.emit('resetGame',{
+      tic: [0,0,0,0,0,0,0,0,0],
+      result: '',
+      GO: false,
+      room : room
+    })
+  }
 
   leaveRoom = () =>{
     const {socket} = this.props;
@@ -232,6 +248,7 @@ class Tic extends Component {
                         : <h1 className="font result-style" >{result} WINS ! ! !</h1>
                     }
                     <Link to = '/'><button onClick={()=>{this.leaveRoom();this.props.leave()}} className="font input-field button-style">BACK TO LOBBY</button></Link>
+                    <button onClick={()=>this.resetGame()} className="font input-field button-style">PLAY AGAIN</button>
                   </Dimmer>
                 )
                 :((players.length === 2)

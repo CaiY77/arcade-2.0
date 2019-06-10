@@ -53,6 +53,10 @@ console.log(`${socket.id} connected`)
     io.to(`${data.room}`).emit('say', data.chat);
   })
 
+  socket.on('resetGame', data=>{
+    io.to(`${data.room}`).emit('resetGame', data);
+  })
+
   socket.on('leaveRoom',roomName=>{
     socket.leave(`${roomName}`)
   })
