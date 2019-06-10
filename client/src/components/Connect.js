@@ -69,7 +69,7 @@ class Connect extends Component {
 
   change = (row,col) => {
     const { board, turnP1 , GO} = this.state;
-    const {socket, id, players,name} = this.props;
+    const {socket, id, players, room} = this.props;
 
     if(turnP1 && id === players[0] && !GO){
       for(let i = 5; i >= 0 ; i--){
@@ -84,12 +84,16 @@ class Connect extends Component {
       room: this.props.room,
       turn: !turnP1
     })
-    this.checkWinner();
+    if(this.checkWinner(1)){
+      socket.emit('results', {
+        result: 'PLAYER ONE',
+        room: room
+      })
+    }
     }
 
     if(!turnP1 && id === players[1] && !GO){
       for(let i = 5; i >= 0 ; i--){
-        console.log(board[i][col])
         if(board[i][col]===0){
           board[i][col]= 2;
           break;
@@ -101,13 +105,52 @@ class Connect extends Component {
           room: this.props.room,
           turn: !turnP1
         })
-        this.checkWinner();
+        if(this.checkWinner(2)){
+          socket.emit('results', {
+            result: 'PLAYER TWO',
+            room: room
+          })
+        }
     }
 
   }
 
-  checkWinner = () => {
-    console.log('checking..')
+  checkWinner = (player) => {
+    const {board} = this.state
+
+    //horizontal
+    for (let c=0; c < (board[0].length - 3); c++) {
+      for (let r=0; r < board.length; r++) {
+        if (board[r][c] === player && board[r][c+1] === player && board[r][c+2] === player && board[r][c+3] === player) {
+          return true
+        }
+      }
+    }
+    //vertical
+    for (let c=0; c < board[0].length; c++) {
+      for (let r=0; r < (board.length - 3); r++) {
+        if (board[r][c] === player && board[r+1][c] === player && board[r+2][c] === player && board[r+3][c] === player) {
+          return true
+        }
+      }
+    }
+    // diagonal down
+    for (let c=0; c < (board[0].length - 3); c++) {
+      for (let r=0; r < (board.length - 3); r++) {
+        if (board[r][c] === player && board[r+1][c+1] === player && board[r+2][c+2] === player && board[r+3][c+3] === player) {
+          return true
+        }
+      }
+    }
+    // diagonal up
+    for (let c=0; c < (board[0].length - 3); c++) {
+      for (let r=3; r < board.length; r++) {
+        if (board[r][c] === player && board[r-1][c+1] === player && board[r-2][c+2] === player && board[r-3][c+3] === player) {
+          return true
+        }
+      }
+    }
+    return false
   }
 
   showMessage = () => {
