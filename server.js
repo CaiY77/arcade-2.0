@@ -29,7 +29,7 @@ console.log(`${socket.id} connected`)
 
   socket.on('joinRoom', data=>{
     socket.username = data.who
-    let people = io.sockets.adapter.rooms[data.room].length
+    let people = io.sockets.adapter.rooms[data.room].length || 2
     if(people < 2){
       socket.join(`${data.room}`)
       io.in(data.room).clients((err,clients)=>{
