@@ -1,18 +1,24 @@
 # Doodle Arcade
 
-Welcome to my Doodle Arcade! This application is a throw back to the games that we use to scribble on our notebooks on our spare. What makes this application special compared to the previous arcade I created is the ability to play on as many computers as possible. It also allows for multiple rooms and multiple games to happen on multiple pages at once. Doodle Arcade also uses many cases of conditional rendering to meet all the different possible stages of the game, wether you're waiting for additional players, win status, ties, and reset. 
+Welcome to my Doodle Arcade! This application is a throw back to the games that we use to scribble on our notebooks on our spare time. What makes this application special compared to the previous arcade I created is the ability to play on as many computers as possible. It also allows for multiple rooms and multiple games to happen on multiple pages at once. Doodle Arcade also uses many cases of conditional rendering to meet all the different possible stages of the game, wether you're waiting for additional players, win status, ties, and reset.
 
 ## React
 
 Doodle Arcade is a full-stack React application that uses JSX/JS/ES, HTML, CSS, and Express. This application also takes advantage of some external libraries such as:
 
-* # Socket.io | Socket.io-client
+* Socket.io | Socket.io-client
 * React-Router-Dom
 * Semantic-UI-React
 
 ## Minimum Viable Product
 
 * A single game, tic-tac-toe that can be played on multiple devices through socket.
+
+## Additional features
+
+* Additional games such as Connect Four ( and more to come )
+* Allow the creation of multiple rooms and have multiple games at once
+* Include a in-game chat that is specific to that room
 
 ## Sneak Peak
 ```JSX
@@ -68,13 +74,6 @@ change = (row,col) => {
   }
 }
 ```
-
-## Additional features
-
-* Additional games such as Connect Four ( and more to come )
-* Allow the creation of multiple rooms and have multiple games at once
-* Include a in-game chat that is specific to that room
-
 ## WireFrames
 
 <img width="843" alt="Screen Shot 2019-06-07 at 12 42 38 AM" src="https://user-images.githubusercontent.com/33525692/59082327-8bad4e80-88c0-11e9-876b-5c8d6c64a691.png">
@@ -97,9 +96,13 @@ change = (row,col) => {
 
 <img width="1440" alt="Screen Shot 2019-06-07 at 12 58 39 AM" src="https://user-images.githubusercontent.com/33525692/59082422-04140f80-88c1-11e9-925d-1365f01f49da.png">
 
-## Start
+## Tic Tac Toe
 
 <img width="1440" alt="Screen Shot 2019-06-07 at 12 59 18 AM" src="https://user-images.githubusercontent.com/33525692/59082450-27d75580-88c1-11e9-89c6-2addd60e3950.png">
+
+## Connect Four
+
+<img width="1440" alt="Screen Shot 2019-06-10 at 3 09 08 AM" src="https://user-images.githubusercontent.com/33525692/59178503-2611ca00-8b2d-11e9-9b9d-4b7aeda574ac.png">
 
 ## Chat Feature w/ Socket.io
 
