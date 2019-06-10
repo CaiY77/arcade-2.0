@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      socket: socketIOClient("localhost:4001"),
+      socket: socketIOClient("https://my-sockets.herokuapp.com/"),
       socketID:'',
       name:'',
       room:'',
@@ -18,6 +18,9 @@ class App extends Component {
       message: '',
       clear: false
     } ;
+  }
+  componentDidMount() {
+    document.title = 'Doodle Arcade'
   }
 
   handleLeave =()=>{
