@@ -46,6 +46,18 @@ class Tic extends Component {
     })
   }
 
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
   gameStatus = () => {
     const {tic} = this.state;
     let show = tic.map((box,index) =>{
@@ -272,6 +284,9 @@ class Tic extends Component {
               <h1 className="font chat-style">CHAT ROOM</h1>
               <div className='messages'>
                 {this.showMessage()}
+                <div style={{ float:"left", clear: "both" }}
+                  ref={(el) => { this.messagesEnd = el; }}>
+                </div>
               </div>
             </div>
             <Form onSubmit={()=>this.saySomething()}>
