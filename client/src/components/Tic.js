@@ -14,7 +14,8 @@ class Tic extends Component {
       GO: false,
       result: '',
       say:'',
-      chat: []
+      chat: [],
+      PA: true
     };
     const {socket} = this.props;
     socket.on('MakeMove',data =>{
@@ -26,10 +27,11 @@ class Tic extends Component {
     socket.on('updatePlayers', client=>{
       this.props.update(client)
     })
-    socket.on('results', result => {
+    socket.on('results', data => {
       this.setState({
-        result: result,
-        GO: true
+        result: data.result,
+        GO: true,
+        PA: data.PA
       });
     })
     socket.on('say', chat =>{
@@ -113,19 +115,22 @@ class Tic extends Component {
     if (player1.length === 5) {
       socket.emit('results', {
         result: 'TIE',
-        room: room
+        room: room,
+        PA: true
       })
     }
     else if(this.Win(player1)){
       socket.emit('results', {
-        result: 'PLAYER ONE',
-        room: room
+        result: 'PLAYER ONE WINS ! ! !',
+        room: room,
+        PA: true
       })
     }
     else if(this.Win(player2)){
       socket.emit('results', {
-        result: 'PLAYER TWO',
-        room: room
+        result: 'PLAYER TWO WINS ! ! !',
+        room: room,
+        PA: true
       })
     }
   }
@@ -212,13 +217,18 @@ class Tic extends Component {
   }
 
   leaveRoom = () =>{
-    const {socket} = this.props;
-    socket.emit('leaveRoom',this.props.room);
+    const {socket, room} = this.props;
+    socket.emit('leaveRoom',room);
+    socket.emit('results', {
+      result: 'YOUR OPPONENT HAS FLEED :(',
+      room: room,
+      PA: false
+    })
   }
 
   render() {
     const { players, id, name, room} = this.props
-    const { turnP1, GO, result, say} = this.state
+    const { turnP1, GO, result, say, PA} = this.state
     return (
       <div className="tic-js">
         <h1 className="font game-title">TIC-TAC-TOE</h1>
@@ -257,10 +267,14 @@ class Tic extends Component {
                     {
                       (result === 'TIE')
                         ? <h1 className="font result-style" > IT'S A DRAW ! ! ! </h1>
-                        : <h1 className="font result-style" >{result} WINS ! ! !</h1>
+                        : <h1 className="font result-style" >{result}</h1>
                     }
                     <Link to = '/'><button onClick={()=>{this.leaveRoom();this.props.leave()}} className="font input-field button-style">BACK TO LOBBY</button></Link>
-                    <button onClick={()=>this.resetGame()} className="font input-field button-style">PLAY AGAIN</button>
+                    {
+                      (PA)
+                        ?<button onClick={()=>this.resetGame()} className="font input-field button-style">PLAY AGAIN</button>
+                        :null
+                    }
                   </Dimmer>
                 )
                 :((players.length === 2)

@@ -14,7 +14,7 @@ console.log(`${socket.id} connected`)
   })
 
   socket.on('results', data => {
-    io.to(`${data.room}`).emit('results', data.result);
+    io.to(`${data.room}`).emit('results', data);
   })
 
   socket.on('createRoom', data=>{
