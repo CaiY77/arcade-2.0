@@ -88,9 +88,9 @@ change = (row,col) => {
 
 <img width="682" alt="Screen Shot 2019-06-07 at 12 37 10 AM" src="https://user-images.githubusercontent.com/33525692/59082376-d038ea00-88c0-11e9-8165-dec483140471.png">
 
-## GameFrom: Create || Join
+## Create || Join
 
-<img width="1440" alt="Screen Shot 2019-06-07 at 12 57 01 AM" src="https://user-images.githubusercontent.com/33525692/59082406-f52d5d00-88c0-11e9-9c33-8a9b432a463e.png">
+<img width="1440" alt="Screen Shot 2019-06-13 at 11 56 03 AM" src="https://user-images.githubusercontent.com/33525692/59448083-6fcf0e80-8dd2-11e9-9810-b96357955c74.png">
 
 ## Loading
 
