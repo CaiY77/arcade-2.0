@@ -246,9 +246,9 @@ class Connect extends Component {
     })
   }
 
-  leaveRoom = () =>{
+  leaveRoom = () => {
     const {socket} = this.props;
-    socket.emit('leaveRoom',this.props.room);
+    socket.emit('leaveRoom',this.props.room)
   }
 
   render() {

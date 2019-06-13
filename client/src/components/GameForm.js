@@ -17,52 +17,82 @@ const GameOptions = [
 ]
 
 class GameForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      join: false,
+      make: false
+    };
+  }
+
+  handleMake = () =>{
+    this.setState({
+      make: true,
+      join: false
+    });
+  }
+  handleJoin = () =>{
+    this.setState({
+      make: false,
+      join: true
+    });
+  }
 
   render() {
+    const {join , make} = this.state;
+
     return (<div className="form-contain">
       <h1 className="font app-title">DODDLE ARCADE</h1>
 
       <div className="sizing">
-        <Segment className="join-create-form">
-          <Grid columns={2} relaxed='very'>
-            <Grid.Column>
-              <Form>
-                <Form.Field>
-                  <label className="font label-style">ENTER YOUR NAME</label>
-                  <input type="text" className="input-field" onChange={this.props.change} name="name"/>
-                </Form.Field>
-                <Form.Field>
-                  <label className="font label-style">SELECT A GAME</label>
-                  <Form.Select onChange={(e, {value}) => this.props.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...'/>
-                </Form.Field>
-                <Link to={`/${this.props.game}`}><button className="font input-field button-style" onClick={()=>this.props.sub()} type='submit'>CREATE GAME!</button></Link>
-              </Form>
-            </Grid.Column>
-            <Grid.Column>
-              <Form>
-                <Form.Field>
-                  <label className="font label-style">ENTER YOUR NAME</label>
-                  <input type="text" className="input-field" onChange={this.props.change} name="name"/>
-                </Form.Field>
-                <Form.Field>
-                  <label className="font label-style">ENTER ROOM CODE</label>
-                  <input type="number" className="input-field" onChange={this.props.change} name="room"/>
-                </Form.Field>
-                <Form.Field>
-                  <label className="font label-style">SELECT A GAME</label>
-                  <Form.Select onChange={(e, {value}) => this.props.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...' />
-                </Form.Field>
-                <button className="font input-field button-style" onClick={()=>this.props.join()} type='submit'>CHECK</button>
-                {
-                  (this.props.clear)
-                    ? <Link to={`/${this.props.game}`}><button className="font input-field button-style">JOIN GAME!</button></Link>
-                    : null
-                }
-              </Form>
-            </Grid.Column>
-          </Grid>
-          <Divider vertical className="font label-style">OR</Divider>
-        </Segment>
+        {
+          (join === false && make === false)
+            ? (<div><button className="font input-field button-style" onClick={()=>this.handleMake()}>Create a Room</button>
+              <button className="font input-field button-style" onClick={()=>this.handleJoin()}>Join a Game</button></div>)
+            : null
+        }
+        {
+          (make === true)
+            ?(<Form>
+              <Form.Field>
+                <label className="font label-style">ENTER YOUR NAME</label>
+                <input type="text" className="input-field" onChange={this.props.change} name="name"/>
+              </Form.Field>
+              <Form.Field>
+                <label className="font label-style">SELECT A GAME</label>
+                <Form.Select onChange={(e, {value}) => this.props.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...'/>
+              </Form.Field>
+              <Link to={`/${this.props.game}`}><button className="font input-field button-style" onClick={()=>this.props.sub()} type='submit'>CREATE GAME!</button></Link>
+              <button className="font input-field button-style" onClick={()=>this.handleJoin()}>Join a Game</button>
+            </Form>)
+            : null
+        }
+        {
+          (join === true)
+            ? (<Form>
+              <Form.Field>
+                <label className="font label-style">ENTER YOUR NAME</label>
+                <input type="text" className="input-field" onChange={this.props.change} name="name"/>
+              </Form.Field>
+              <Form.Field>
+                <label className="font label-style">ENTER ROOM CODE</label>
+                <input type="number" className="input-field" onChange={this.props.change} name="room"/>
+              </Form.Field>
+              <Form.Field>
+                <label className="font label-style">SELECT A GAME</label>
+                <Form.Select onChange={(e, {value}) => this.props.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...' />
+              </Form.Field>
+              <button className="font input-field button-style" onClick={()=>this.props.join()} type='submit'>CHECK</button>
+              {
+                (this.props.clear)
+                  ? <Link to={`/${this.props.game}`}><button className="font input-field button-style">JOIN GAME!</button></Link>
+                  : null
+              }
+              <button className="font input-field button-style" onClick={()=>this.handleMake()}>Create a Room</button>
+            </Form>)
+            : null
+        }
+
       </div>
 
       <h1 className="font error-form">{this.props.message}</h1>
