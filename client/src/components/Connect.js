@@ -252,8 +252,8 @@ class Connect extends Component {
   }
 
   leaveRoom = () => {
-    const {socket} = this.props;
-    socket.emit('leaveRoom',this.props.room)
+    const {socket, room} = this.props;
+    socket.emit('leaveRoom',room)
     socket.emit('results', {
       result: 'YOUR OPPONENT HAS FLEED :(',
       room: room,
@@ -263,7 +263,7 @@ class Connect extends Component {
 
   render() {
     const { players, id, name, room} = this.props
-    const {say, chat, turnP1, GO, result} = this.state
+    const {say, chat, turnP1, GO, result, PA} = this.state
     return (
       <div>
         <h1 className="font game-title">CONNECT FOUR</h1>
