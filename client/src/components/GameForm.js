@@ -47,8 +47,8 @@ class GameForm extends Component {
       <div className="sizing">
         {
           (join === false && make === false)
-            ? (<div><button className="font input-field button-style" onClick={()=>this.handleMake()}>Create a Room</button>
-              <button className="font input-field button-style" onClick={()=>this.handleJoin()}>Join a Game</button></div>)
+            ? (<div><button className="font input-field button-style" onClick={()=>this.handleMake()}>CREATE A ROOM</button>
+              <button className="font input-field button-style" onClick={()=>this.handleJoin()}>JOIN A GAME</button></div>)
             : null
         }
         {
@@ -63,7 +63,7 @@ class GameForm extends Component {
                 <Form.Select onChange={(e, {value}) => this.props.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...'/>
               </Form.Field>
               <Link to={`/${this.props.game}`}><button className="font input-field button-style" onClick={()=>this.props.sub()} type='submit'>CREATE GAME!</button></Link>
-              <button className="font input-field button-style" onClick={()=>this.handleJoin()}>Join a Game</button>
+              <button className="font input-field button-style" onClick={()=>this.handleJoin()}>JOIN A GAME</button>
             </Form>)
             : null
         }
@@ -82,13 +82,13 @@ class GameForm extends Component {
                 <label className="font label-style">SELECT A GAME</label>
                 <Form.Select onChange={(e, {value}) => this.props.handleGame(value)} options={GameOptions} name="game" placeholder='I want to play...' />
               </Form.Field>
-              <button className="font input-field button-style" onClick={()=>this.props.join()} type='submit'>CHECK</button>
               {
                 (this.props.clear)
                   ? <Link to={`/${this.props.game}`}><button className="font input-field button-style">JOIN GAME!</button></Link>
-                  : null
+                  : <button className="font input-field button-style" onClick={()=>this.props.join()} type='submit'>CHECK</button>
+
               }
-              <button className="font input-field button-style" onClick={()=>this.handleMake()}>Create a Room</button>
+              <button className="font input-field button-style" onClick={()=>this.handleMake()}>CREATE A ROOM</button>
             </Form>)
             : null
         }
