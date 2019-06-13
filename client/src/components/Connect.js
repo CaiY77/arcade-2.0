@@ -19,7 +19,8 @@ class Connect extends Component {
         [0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0]
-      ]
+      ],
+      PA: true
     };
     const {socket} = this.props
     socket.on('say', chat =>{
@@ -37,10 +38,11 @@ class Connect extends Component {
     socket.on('updatePlayers', client=>{
       this.props.update(client)
     })
-    socket.on('results', result => {
+    socket.on('results', data => {
       this.setState({
-        result: result,
-        GO: true
+        result: data.result,
+        GO: true,
+        PA: data.PA
       });
     })
     socket.on('resetGame', data=>{
@@ -102,8 +104,9 @@ class Connect extends Component {
     })
     if(this.checkWinner(1)){
       socket.emit('results', {
-        result: 'PLAYER ONE',
-        room: room
+        result: 'PLAYER ONE WINS ! ! !',
+        room: room,
+        PA: true
       })
     }
     }
@@ -123,14 +126,16 @@ class Connect extends Component {
         })
         if(this.checkWinner(2)){
           socket.emit('results', {
-            result: 'PLAYER TWO',
-            room: room
+            result: 'PLAYER TWO WINS ! ! !',
+            room: room,
+            PA: true
           })
         }
         if(this.isTie()){
           socket.emit('results', {
             result: 'TIE',
-            room: room
+            room: room,
+            PA: true
           })
         }
     }
@@ -249,6 +254,11 @@ class Connect extends Component {
   leaveRoom = () => {
     const {socket} = this.props;
     socket.emit('leaveRoom',this.props.room)
+    socket.emit('results', {
+      result: 'YOUR OPPONENT HAS FLEED :(',
+      room: room,
+      PA: false
+    })
   }
 
   render() {
@@ -293,11 +303,14 @@ class Connect extends Component {
                     {
                       (result === 'TIE')
                         ? <h1 className="font result-style" > IT'S A DRAW ! ! ! </h1>
-                        : <h1 className="font result-style" >{result} WINS ! ! !</h1>
+                        : <h1 className="font result-style" >{result}</h1>
                     }
                     <Link to = '/'><button onClick={()=>{this.leaveRoom();this.props.leave()}} className="font input-field button-style">BACK TO LOBBY</button></Link>
-                    <button onClick={()=>this.resetGame()} className="font input-field button-style">PLAY AGAIN</button>
-                  </Dimmer>
+                    {
+                      (PA)
+                        ?<button onClick={()=>this.resetGame()} className="font input-field button-style">PLAY AGAIN</button>
+                        :null
+                    }                  </Dimmer>
                 )
                 :((players.length === 2)
                   ? (
