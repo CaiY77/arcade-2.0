@@ -20,18 +20,11 @@
   margin-bottom: 5vh;
 }
 .sizing{
-  padding:0 25vw 0 25vw;
-}
-.join-create-form{
-  width: auto;
-  height: auto;
-  background: transparent !important;
-  border: solid 3px !important;
-  border-radius: 2% 95% 2% 95%/95% 2% 92% 2% !important;
-  padding: 3vw !important;
+  padding:0 35vw 0 35vw;
+  text-align: center;
 }
 .form-contain{
-  height:100vh;
+  height: 100vh;
   padding-top: 5vh;
 }
 .error-form{
