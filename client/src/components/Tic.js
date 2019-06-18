@@ -43,7 +43,8 @@ class Tic extends Component {
       this.setState({
         result: data.result,
         GO: data.GO,
-        tic: data.tic
+        tic: data.tic,
+        turnP1: data.turnP1,
       });
     })
   }
@@ -212,7 +213,8 @@ class Tic extends Component {
       tic: [0,0,0,0,0,0,0,0,0],
       result: '',
       GO: false,
-      room : room
+      room : room,
+      turnP1: true
     })
   }
 
