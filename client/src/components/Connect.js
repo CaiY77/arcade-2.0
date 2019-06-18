@@ -49,7 +49,8 @@ class Connect extends Component {
       this.setState({
         result: data.result,
         GO: data.GO,
-        board: data.board
+        board: data.board,
+        turnP1: data.turnP1
       });
     })
 
@@ -247,7 +248,8 @@ class Connect extends Component {
       ],
       result: '',
       GO: false,
-      room : room
+      room : room,
+      turnP1: true
     })
   }
 
