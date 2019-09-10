@@ -2,93 +2,110 @@
   font-family: hand-writing;
   src: url(./assets/NanumBrush.ttf);
 }
-*{
-  padding:0;
+
+* {
+  padding: 0;
   margin: 0;
 }
+
 .font {
   font-family: hand-writing !important;
 }
-.app-contain{
+
+.app-contain {
   background: url(./images/paper.jpg);
   background-size: cover;
   height: 100vh;
 }
-.app-title{
-  text-align:center;
+
+.app-title {
+  text-align: center;
   font-size: 90pt;
   margin-bottom: 5vh;
 }
-.sizing{
-  padding:0 35vw 0 35vw;
+
+.sizing {
+  padding: 0 35vw 0 35vw;
   text-align: center;
 }
-.form-contain{
+
+.form-contain {
   height: 100vh;
   padding-top: 5vh;
 }
-.error-form{
+
+.error-form {
   text-align: center;
 }
-.label-style{
+
+.label-style {
   font-size: 20pt !important;
 }
-.input-field{
+
+.input-field {
   background: transparent !important;
   border: solid !important;
   border-radius: 2% 95% 2% 95%/95% 2% 92% 2% !important;
 }
-.button-style{
+
+.button-style {
   font-size: 20pt;
   padding: 10px;
   margin-right: 25px;
   color: black !important;
 }
 
-input[type="text"], input[type="number"]
-{
-  font-family:hand-writing !important;
+input[type="text"], input[type="number"] {
+  font-family: hand-writing !important;
   font-size: 20pt !important;
   padding: 5px 5px 5px 10px !important;
 }
-.cancel-button{
+
+.cancel-button {
   margin-top: 30vh;
 }
 
 /* GAME */
-.tic-js{
+.tic-js {
   height: 80vh;
 }
-.game-title{
+
+.game-title {
   margin: 0;
   padding: 0;
   text-align: center;
   font-size: 90pt;
   height: 20vh;
 }
-.room , .player{
+
+.room, .player {
   border: solid;
   text-align: center;
   border-radius: 4% 95% 4% 95%/95% 4% 92% 4%;
 }
-.room-num{
+
+.room-num {
   text-align: center;
   font-size: 80pt;
 }
-.name{
+
+.name {
   font-size: 40pt;
   text-align: center;
 }
-.leave-button{
+
+.leave-button {
   position: absolute;
   top: 90vh;
   left: 5.5vw;
   text-align: center;
 }
-.game-content-contain{
+
+.game-content-contain {
   display: flex;
   height: 80vh;
 }
+
 .tic-board {
   width: 36vw;
   height: 36vw;
@@ -96,60 +113,73 @@ input[type="text"], input[type="number"]
   flex-wrap: wrap;
   margin: auto;
 }
-.game-info{
-flex: 1;
-padding: 1vw;
+
+.game-info {
+  flex: 1;
+  padding: 1vw;
 }
-.game-space-contain{
+
+.game-space-contain {
   flex: 3;
 }
-.turn{
+
+.turn {
   text-align: center;
   font-size: 35pt;
 }
-.result-style{
+
+.result-style {
   color: black !important;
-  font-size:70pt;
+  font-size: 70pt;
 }
-.chat{
-  flex:1;
+
+.chat {
+  flex: 1;
   padding: 1vw;
 }
-.chat-box{
+
+.chat-box {
   height: 90%;
   border: solid 3px;
   border-radius: 1% 95% 1% 95%/95% 1% 92% 1%;
   margin-bottom: 1vh;
-  display:flex;
+  display: flex;
   flex-direction: column;
 }
-.chat-style{
+
+.chat-style {
   text-align: center;
   font-size: 35pt;
   border-bottom: solid;
   padding-bottom: 10px;
   flex: 1;
 }
-.say{
+
+.say {
   width: 100%;
 }
-.msg-pair{
-  display:flex;
+
+.msg-pair {
+  display: flex;
   flex-direction: column;
 }
-.who{
+
+.who {
   font-size: 25pt;
   padding: 0;
   margin: 0;
   height: 5vh;
 }
-.redTxt{
+
+.redTxt {
   color: red;
 }
-.blueTxt{
+
+.blueTxt {
   color: blue;
 }
-.what{
+
+.what {
   font-size: 20pt;
   padding: 0;
   margin: 0;
@@ -158,58 +188,70 @@ padding: 1vw;
   word-wrap: break-word;
   line-height: 0.7;
 }
-.messages{
-  padding:0 1vh 1vh 1vh;
+
+.messages {
+  padding: 0 1vh 1vh 1vh;
   flex: 9;
   overflow-y: auto;
 }
-.box{
+
+.box {
   width: 12vw;
   height: 12vw;
 }
+
 .box0, .box3, .box6 {
   border-right: solid;
 }
+
 .box0, .box1, .box2 {
   border-bottom: solid;
 }
+
 .box2, .box5, .box8 {
   border-left: solid;
 }
+
 .box6, .box7, .box8 {
   border-top: solid;
 }
-.player1{
+
+.player1 {
   background: url('./images/o.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
-.player2{
+
+.player2 {
   background: url('./images/x.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
-.connect-board{
+
+.connect-board {
   width: 42vw;
   height: 36vw;
   display: flex;
   flex-wrap: wrap;
   margin: auto;
 }
-.piece{
+
+.piece {
   width: 6vw;
   height: 6vw;
   border: solid 1px;
 }
-.piece1{
+
+.piece1 {
   background: url('./images/dot.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
 }
-.piece2{
+
+.piece2 {
   background: url('./images/dot-e.png');
   background-size: contain;
   background-repeat: no-repeat;
